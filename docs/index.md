@@ -45,7 +45,7 @@ All code is written in ESP-IDF without additional mapping layer like Arduino.
 All configuration is written outside firmware in configuration file named _board.yaml_ on dedicated partition.
 For example, on following scheme is minimal EVSE circuit with ESP32 devkit.
 
-![Minimal circuit](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/minimal-circuit.png)
+![Minimal circuit](images/minimal-circuit.png)
 
 For this circuit there is config file _board.yaml_, for more information's see [YAML schema](board-config/board-config-schema-1.json).
 
@@ -70,15 +70,15 @@ Fully responsive web interface is accessible local network IP address on port 80
 
 Dashboard page
 
-![Dashboard](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/web-dashboard.png) 
+![Dashboard](images/web-dashboard.png) 
 
 Settings page
 
-![Settings](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/web-settings.png)
+![Settings](images/web-settings.png)
 
 Mobile dashboard page
 
-![Dashboard mobile](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/web-dashboard-mobile.png)
+![Dashboard mobile](images/web-dashboard-mobile.png)
 
 ## Hardware
 
@@ -88,7 +88,7 @@ Dev board with basic functionality, single phase energy meter, RS485. One side p
 
 [EasyEDA project](https://oshwlab.com/dzurik.miroslav/esp32-devkit-evse)
 
-![ESP32DevkitC](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/esp32devkitc.jpg)
+![ESP32DevkitC](images/esp32devkitc.jpg)
 
 ### ESP32-S2 EVSE DIY ALPHA
 
@@ -98,7 +98,7 @@ ESP32-S2 based EVSE with advanced functionality, three phase energy meter, RS485
 
 [Wiki page](https://github.com/dzurikmiroslav/esp32-evse/wiki/ESP32%E2%80%90S2-EVSE-DIY-ALPHA)
 
-![ESP32-S2-DA](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/esp32s2da.jpg)
+![ESP32-S2-DA](images/esp32s2da.jpg)
 
 Quick demonstration video
 
