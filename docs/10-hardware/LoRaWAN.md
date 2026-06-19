@@ -83,4 +83,4 @@ function decodeUplink(input) {
 
 After setup, you should see live data in TTN console like this:
 
-![TTN live data](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/ttn-live-data.png "TTN live data")
+![TTN live data](/images/ttn-live-data.png "TTN live data")

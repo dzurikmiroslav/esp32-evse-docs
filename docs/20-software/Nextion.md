@@ -72,14 +72,14 @@ Define dual-state button with objname `en`, slider with objname `chCur` and stri
 
 Set page preinitialize event:
 
-![Page preinitialize event](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/nxeditor-page.png)
+![Page preinitialize event](/images/nxeditor-page.png)
 
 Set slider touch release event:
 
-![Slider touch release event](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/nxeditor-slider.png)
+![Slider touch release event](/images/nxeditor-slider.png)
 
 Set dual-state button touch press event:
 
-![Slider touch release event](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/nxeditor-button.png)
+![Slider touch release event](/images/nxeditor-button.png)
 
 For advanced Nextion HMI visit https://github.com/dzurikmiroslav/esp32-evse-nextion

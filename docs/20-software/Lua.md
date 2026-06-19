@@ -74,7 +74,7 @@ No need to worry about started coroutine terminating, is terminated during scrip
 
 This will looks like in web interface:
 
-![Script settings](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/web-settings-script.png "Script settings")
+![Script settings](/images/web-settings-script.png "Script settings")
 
 ## Evse module
 

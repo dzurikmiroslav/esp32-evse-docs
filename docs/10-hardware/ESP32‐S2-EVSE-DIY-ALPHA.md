@@ -2,7 +2,7 @@
 
 [EasyEDA project](https://oshwlab.com/dzurik.miroslav/esp32s2-diy-evse)
 
-![Pinout](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/esp32s2da-terminals.png)
+![Pinout](/images/esp32s2da-terminals.png)
 
 The dimensions of the board are 150x122 mm, designed to fit into the UM122 enclosure.
 
@@ -75,13 +75,13 @@ Residual Current Monitor (RCM) is optional, if is not available it must be disab
 
 ### With socket outlet
 
-![Wiring socket outlet](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/esp32s2da-wiring-lock.png)
+![Wiring socket outlet](/images/esp32s2da-wiring-lock.png)
 
 Set `Max charging current` to the value of the circuit breaker that protects the EVSE.
 
 ### With fixed cable
 
-![Wiring fixed cable](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/esp32s2da-wiring-cable.png)
+![Wiring fixed cable](/images/esp32s2da-wiring-cable.png)
 
 Set `Max charging current` to the lower value of the circuit breaker that protects the EVSE or cable maximum current.
 
@@ -94,6 +94,6 @@ Placed in standard plastic electrical box (300x400x200mm). Based on connection w
 * Nextion display NX4827P043-011C-Y
 * Dragino LoraWAN module
 
-![Wallbox](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/esp32s2da-wallbox.jpg)
+![Wallbox](/images/esp32s2da-wallbox.jpg)
 
 Emergency stop button not wired yet...

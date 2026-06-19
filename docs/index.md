@@ -32,7 +32,7 @@ J1772 EVSE firmware for ESP32 based devices.
 
 Easy initial installation of esp32-evse firmware can be performed using your browser (currently Google Chrome or Microsoft Edge).
 
-[ Web installer](https://dzurikmiroslav.github.io/esp32-evse/web-installer)
+[Web installer](installer.md)
 
 ### Device definition method
 
@@ -47,7 +47,7 @@ For example, on following scheme is minimal EVSE circuit with ESP32 devkit.
 
 ![Minimal circuit](images/minimal-circuit.png)
 
-For this circuit there is config file _board.yaml_, for more information's see [YAML schema](board-config/board-config-schema-1.json).
+For this circuit there is config file _board.yaml_, for more information's see [YAML schema](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config).
 
 ```yaml
 deviceName: ESP32 minimal EVSE

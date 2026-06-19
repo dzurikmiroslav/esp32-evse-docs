@@ -24,7 +24,7 @@ Because state detection is performed only on high voltage, a DC power supply can
 
 ### State A
 
-![CP simulation A](../images/cp-sim-a.png)
+![CP simulation A](/images/cp-sim-a.png)
 
 ### State B
 
