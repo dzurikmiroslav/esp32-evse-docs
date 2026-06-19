@@ -1,4 +1,4 @@
-# OPEN API
+# Open API
 
 ```yaml
 # npx openapi-to-md -s openapi.yaml REST.md
