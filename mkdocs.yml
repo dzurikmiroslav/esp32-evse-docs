@@ -8,7 +8,7 @@ docs_dir: docs
 theme:
   name: material
   logo: assets/esp32-evse.svg
-#  favicon: assets/be.ico
+  favicon: assets/esp32-evse.ico
   language: 'en'
   custom_dir: docs/overrides
   palette:
