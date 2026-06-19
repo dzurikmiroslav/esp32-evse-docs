@@ -7,7 +7,7 @@ title: Control Pilot calibration
 Control pilot calibration is performed by setting the right `pilot.levels` values in `board.yaml`.
 These values are used for detection EVSE states and diode short error.
 
-Next table descibe J1772 specification pilot states. ([source](https://www.ti.com/lit/ug/tidub87/tidub87.pdf))
+The following table descibes the J1772 specification pilot states. ([source](https://www.ti.com/lit/ug/tidub87/tidub87.pdf))
 
 | State | High voltage | Low voltage | Frequency | Resistance |
 | ----- | ------------ | ----------- | --------- | ---------- |
@@ -18,13 +18,15 @@ Next table descibe J1772 specification pilot states. ([source](https://www.ti.co
 | E     | 0 V          | 0 V         | N/A       |            |
 | F     | N/A          | -12 V       | N/A       |            |
 
-On following example circuit, sensing CP voltage is provided by voltage divider with shift (R2, R4, R6).
-Wire `CP_OUT` is connected to the EV, `CP_SENS` is connected to ESP32 adc.
+In our example circuit, sensing CP voltage is provided by a voltage divider with shift (R2, R4, R6).
+
+Wire `CP_OUT` is connected to the EV, `CP_SENS` is connected to ESP32 ADC input.
 
 ![CP sensing circuit](/images/cp-sens-circuit.png)
 
 For this circuit there is simulation with EV side.
-Because state detection is performed only on high voltage, a DC power supply can be used in the simulation.
+
+Because state detection is performed only on high voltage on a real vehicle, a DC power supply can be used in the simulation.
 
 ### State A
 
@@ -44,13 +46,13 @@ Because state detection is performed only on high voltage, a DC power supply can
 
 ### Negative voltage
 
-For diode short detection, just detect -6V in the lower voltage. 
+For diode short detection, it's enough to just detect less than -6V. 
 
 ![CP simulation negative](/images/cp-sim-neg.png)
 
 ## Measurements
 
-In next table is measured values for EV states.
+Here are the measured values for the EV states:
 
 | State       | ADC voltage |
 | ----------- | ----------- |
@@ -62,7 +64,7 @@ In next table is measured values for EV states.
 
 ## Calculated levels
 
-Next, calculate midpoint voltage between states, that will be used as down threshold.
+Based on the measurements, we calculate midpoint voltage between states, that will be used as down threshold.
 For state D, the value is calculated as a sequence of the difference B-C and C-D.
 
 | State | Calculation          | Down threshold |
@@ -76,9 +78,9 @@ When the calculated values are displayed on the graph, they should have a linear
 
 ![CP simulation C](/images/cp-cal-graph.png)
 
-From these values `board.yaml` will look like this:
+Based on these values, `board.yaml` should look like this:
 
-```bash
+```yaml
 pilot:
   levels: [2406, 2100, 1792, 1484, 728]
 ```

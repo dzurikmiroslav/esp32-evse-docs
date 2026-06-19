@@ -2,3 +2,4 @@ ignore:
   - index.md
 nav:
   - "*"
+  - build-examples.md
