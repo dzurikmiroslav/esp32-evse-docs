@@ -1,4 +1,7 @@
 use_index_title: true
 nav:
-  - "*"
+  - 10-hardware/
+  - 20-software/
+  - installer.md
+#  - "*"
 #  - Web Installer: https://dalathegreat.github.io/BE-Web-Installer/ "target=_blank"
