@@ -50,9 +50,10 @@ extra:
     - icon: fontawesome/brands/patreon
       link: 'https://github.com/sponsors/dzurikmiroslav'
     - icon: fontawesome/brands/github
-      link: 'https://nagyrobi.github.io/esp32-evse-docs/'
+      link: 'https://github.com/dzurikmiroslav/esp32-evse/'
 plugins:
-  - offline
+  - offline:
+      enabled: !ENV [OFFLINE, false]
   - search:
       lang:
         - en
