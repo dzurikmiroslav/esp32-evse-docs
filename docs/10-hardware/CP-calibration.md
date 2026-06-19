@@ -1,3 +1,7 @@
+---
+title: Control Pilot calibration
+---
+
 ## Overview
 
 Control pilot calibration is performed by setting the right `pilot.levels` values in `board.yaml`.

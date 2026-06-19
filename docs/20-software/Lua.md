@@ -1,3 +1,7 @@
+---
+title: LUA Scripting reference
+---
+
 Script capability allows custom functionality of controller, is based on [Lua](https://lua.org/).
 
 Script settings are in web interface, when you can enable/disable this feature and browsing print output. 

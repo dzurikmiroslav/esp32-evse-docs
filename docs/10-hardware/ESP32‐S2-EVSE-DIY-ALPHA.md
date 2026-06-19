@@ -1,3 +1,7 @@
+---
+title: ESP32-S2 EVSE DIY Alpha
+---
+
 ## Desciption
 
 [EasyEDA project](https://oshwlab.com/dzurik.miroslav/esp32s2-diy-evse)

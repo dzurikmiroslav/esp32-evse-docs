@@ -1,3 +1,7 @@
+---
+title: AT Commands reference
+---
+
 ## Basic commands
 
 When AT Commands module is enabled, at startup, the device will print automatically on the line the `RDY` message only once, to inform the client that communication can start. Since this mostly happens when the board booted up, it can be useful to detect on the client side a freshly booted state.

@@ -1,3 +1,7 @@
+---
+title: Open API integration example
+---
+
 # Open API
 
 ```yaml

@@ -1,3 +1,7 @@
+---
+title: Nextion display reference
+---
+
 Controller provide Nextion API that is universal (not strictly define pages or components placement on pages).
 
 Nextion API can be set in serial settings, any serial interface can be operating in Nextion API mode. Only one interface can work in Nextion API mode!

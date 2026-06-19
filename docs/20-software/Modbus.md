@@ -1,3 +1,7 @@
+---
+title: ModBUS reference
+---
+
 Controller support Modbus slave over TCP/IP and RTU/serial.
 
 Modbus settings are in web interface, when you can enable/disable Modbus TCP server and set Unit ID.

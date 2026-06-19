@@ -1,8 +1,11 @@
+---
+title: Board config schema reference
+---
 # Board config schema
 
-&#36;schema: [http://json-schema.org/draft-07/schema#](http://json-schema.org/draft-07/schema#)
+[Reference schema](http://json-schema.org/draft-07/schema#)
 
-&#36;ref: [#/definitions/BoardConfig](#/definitions/BoardConfig)
+[Bodard schema](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config).
 
 # definitions
 
@@ -324,7 +327,5 @@
 		 - _Has temperature sensor on onewire bus_
 		 - Type: `boolean`
 		 - <i id="/definitions/Onewire/properties/temperatureSensor">path: #/definitions/Onewire/properties/temperatureSensor</i>
-
-
 
 _Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_
