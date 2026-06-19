@@ -1,5 +1,3 @@
-## Overview
-
 Control pilot calibration is performed by setting the right `pilot.levels` values in `board.yaml`.
 These values are used for detection EVSE states and diode short error.
 
@@ -17,34 +15,32 @@ Next table descibe J1772 specification pilot states. ([source](https://www.ti.co
 On following example circuit, sensing CP voltage is provided by voltage divider with shift (R2, R4, R6).
 Wire `CP_OUT` is connected to the EV, `CP_SENS` is connected to ESP32 adc.
 
-![CP sensing circuit]](/images/cp-sens-circuit.png)
+![CP sensing circuit](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-sens-circuit.png)
 
 For this circuit there is simulation with EV side.
 Because state detection is performed only on high voltage, a DC power supply can be used in the simulation.
 
-### State A
+**State A**
 
-![CP simulation A]](../images/cp-sim-a.png)
+![CP simulation A](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-sim-a.png)
 
-### State B
+**State B**
 
-![CP simulation B]](/images/cp-sim-b.png)
+![CP simulation B](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-sim-b.png)
 
-### State C
+**State C**
 
-![CP simulation C]](/images/cp-sim-c.png)
+![CP simulation C](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-sim-c.png)
 
-### State D
+**State D**
 
-![CP simulation D]](/images/cp-sim-d.png)
+![CP simulation D](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-sim-d.png)
 
-### Negative voltage
+**And negative voltage**
 
 For diode short detection, just detect -6V in the lower voltage. 
 
-![CP simulation negative]](/images/cp-sim-neg.png)
-
-## Measurements
+![CP simulation negative](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-sim-neg.png)
 
 In next table is measured values for EV states.
 
@@ -55,8 +51,6 @@ In next table is measured values for EV states.
 | C           | 1948 mV     |
 | D           | 1636 mV     |
 | Low voltage | 728 mV      |
-
-## Calculated levels
 
 Next, calculate midpoint voltage between states, that will be used as down threshold.
 For state D, the value is calculated as a sequence of the difference B-C and C-D.
@@ -70,7 +64,7 @@ For state D, the value is calculated as a sequence of the difference B-C and C-D
 
 When the calculated values are displayed on the graph, they should have a linear course.
 
-![CP simulation C]](/images/cp-cal-graph.png)
+![CP simulation C](https://github.com/dzurikmiroslav/esp32-evse/wiki/images/cp-cal-graph.png)
 
 From these values `board.yaml` will look like this:
 
@@ -79,5 +73,6 @@ pilot:
   levels: [2406, 2100, 1792, 1484, 728]
 ```
 
-!!! note "NOTE"
-    When designing a new voltage divider, remember the ESP32 adc [_suggested range_](https://docs.espressif.com/projects/esp-idf/en/v4.4.3/esp32/api-reference/peripherals/adc.html#_CPPv425adc1_config_channel_atten14adc1_channel_t11adc_atten_t) (adc is configured for attenuation 11dB).
+**Note**
+When designing a new voltage divider, remember the ESP32 adc [_suggested range_](https://docs.espressif.com/projects/esp-idf/en/v4.4.3/esp32/api-reference/peripherals/adc.html#_CPPv425adc1_config_channel_atten14adc1_channel_t11adc_atten_t).
+(adc is configured for attenuation 11dB)
