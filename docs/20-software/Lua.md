@@ -8,18 +8,7 @@ Script settings are in web interface, when you can enable/disable this feature a
 In Files web interface, you can edit Lua sources. At startup file `/usr/lua/init.lua` (or `/usr/lua/init.luac` if it's provided) will be executed.
 Lua sources also can be edited through WebDAV, just open in file browser url: `dav://<IP>/dav/usr/`. I recommended this way, because you can use favorite Lua IDE...
 
-In addition to the standard Lua functionality, there is additional modules for controlling charging controller:
-- [Component module](#component-module)
-  - [Component table definition](#component-table-definition)
-  - [Component parameter table definition](#component-parameter-table-definition)
-- [Evse module](#evse-module)
-- [Energymeter module](#energymeter-module)
-- [Boardconfig module](#boardconfig-module)
-- [Aux module](#aux-module)
-- [Mqtt module](#mqtt-module)
-- [Json module](#json-module)
-- [Serial module](#serial-module)
-- [Complex example: Emergency Stop, ThingsBoard cloud](#complex-example)
+In addition to the standard Lua functionality, additional EVSE-specific modules are available to control the charging controller.
 
 ## Component module
 
@@ -72,6 +61,7 @@ component.register({
     end
 })
 ```
+
 Created coroutine in `start` function may have infinity loop, but must be in it placed calling `coroutine.yield`.
 Paramter of `coroutine.yield` is optional number, which mean number of miliseconds wich coroutine is ommited from resumining.  
 No need to worry about started coroutine terminating, is terminated during script VM reloading or when user change component parameter values.

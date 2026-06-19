@@ -20,17 +20,17 @@ J1772 EVSE firmware for ESP32 based devices.
  - Responsive web-interface
  - OTA update
  - Integrated energy meter
+ - [Modbus](20-software/Modbus.md) (RTU and TCP)
+ - [LUA scripting](20-software/Lua.md)
+ - [Nextion HMI](20-software/Nextion.md)
+ - [AT commands](20-software/AT-Commands.md)
  - REST API
  - WebDAV
- - [Modbus](https://github.com/dzurikmiroslav/esp32-evse/wiki/Modbus) (RS485, TCP)
- - [Lua scripting](https://github.com/dzurikmiroslav/esp32-evse/wiki/Lua)
- - [Nextion HMI](https://github.com/dzurikmiroslav/esp32-evse/wiki/Nextion)
- - [AT commands](https://github.com/dzurikmiroslav/esp32-evse/wiki/AT-commands)
  - Scheduler
 
 ### Web installer
 
-Easy initial installation of esp32-evse firmware can be performed using your browser (currently Google Chrome or Microsoft Edge).
+Easy initial installation of esp32-evse firmware can be performed using a browser.
 
 [Web installer](installer.md)
 
@@ -40,14 +40,15 @@ _One firmware to rule them all._ Not really :-) one per device platform (ESP32, 
 
 There is no need to compile the firmware for your EVSE design.
 Source code ist not hardcoded to GPIOs or other hardware design features.
-All code is written in ESP-IDF without additional mapping layer like Arduino.
+All code is written in ESP-IDF without additional wrapping layer like Arduino.
 
-All configuration is written outside firmware in configuration file named _board.yaml_ on dedicated partition.
-For example, on following scheme is minimal EVSE circuit with ESP32 devkit.
+All configuration is specified separately form the firmware binary in a configuration file named _board.yaml_ stored on a dedicated partition.
+
+For example, the following schematic is a minimal EVSE circuit with ESP32 devkit:
 
 ![Minimal circuit](images/minimal-circuit.png)
 
-For this circuit there is config file _board.yaml_, for more information's see [YAML schema](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config).
+For this circuit _board.yaml_, has to contain only this: 
 
 ```yaml
 deviceName: ESP32 minimal EVSE
@@ -63,6 +64,8 @@ pilot:
 acRelay:
   gpios: [32]
 ```
+
+For more information's see [YAML schema](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config).
 
 ### Web interface
 
@@ -80,7 +83,7 @@ Mobile dashboard page
 
 ![Dashboard mobile](images/web-dashboard-mobile.png)
 
-Check out the [build examples page](10-hardware/build-examples.md) to see the hardware in action.
+Check out the [build examples page](10-hardware/build-examples.md) to see some hardware in action.
 
 ## Donations
 
