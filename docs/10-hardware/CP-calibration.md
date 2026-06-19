@@ -17,32 +17,32 @@ Next table descibe J1772 specification pilot states. ([source](https://www.ti.co
 On following example circuit, sensing CP voltage is provided by voltage divider with shift (R2, R4, R6).
 Wire `CP_OUT` is connected to the EV, `CP_SENS` is connected to ESP32 adc.
 
-![CP sensing circuit]](../images/cp-sens-circuit.png)
+![CP sensing circuit]](/images/cp-sens-circuit.png)
 
 For this circuit there is simulation with EV side.
 Because state detection is performed only on high voltage, a DC power supply can be used in the simulation.
 
 ## State A
 
-![CP simulation A]](../images/cp-sim-a.png)
+![CP simulation A]](/images/cp-sim-a.png)
 
 ## State B
 
-![CP simulation B]](../images/cp-sim-b.png)
+![CP simulation B]](/images/cp-sim-b.png)
 
 ## State C
 
-![CP simulation C]](../images/cp-sim-c.png)
+![CP simulation C]](/images/cp-sim-c.png)
 
 ## State D
 
-![CP simulation D]](../images/cp-sim-d.png)
+![CP simulation D]](/images/cp-sim-d.png)
 
 ## Negative voltage
 
 For diode short detection, just detect -6V in the lower voltage. 
 
-![CP simulation negative]](../images/cp-sim-neg.png)
+![CP simulation negative]](/images/cp-sim-neg.png)
 
 # Measurements
 
@@ -70,7 +70,7 @@ For state D, the value is calculated as a sequence of the difference B-C and C-D
 
 When the calculated values are displayed on the graph, they should have a linear course.
 
-![CP simulation C]](../images/cp-cal-graph.png)
+![CP simulation C]](/images/cp-cal-graph.png)
 
 From these values `board.yaml` will look like this:
 
