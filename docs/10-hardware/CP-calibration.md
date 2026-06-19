@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 Control pilot calibration is performed by setting the right `pilot.levels` values in `board.yaml`.
 These values are used for detection EVSE states and diode short error.
@@ -22,29 +22,29 @@ Wire `CP_OUT` is connected to the EV, `CP_SENS` is connected to ESP32 adc.
 For this circuit there is simulation with EV side.
 Because state detection is performed only on high voltage, a DC power supply can be used in the simulation.
 
-## State A
+### State A
 
 ![CP simulation A]](/images/cp-sim-a.png)
 
-## State B
+### State B
 
 ![CP simulation B]](/images/cp-sim-b.png)
 
-## State C
+### State C
 
 ![CP simulation C]](/images/cp-sim-c.png)
 
-## State D
+### State D
 
 ![CP simulation D]](/images/cp-sim-d.png)
 
-## Negative voltage
+### Negative voltage
 
 For diode short detection, just detect -6V in the lower voltage. 
 
 ![CP simulation negative]](/images/cp-sim-neg.png)
 
-# Measurements
+## Measurements
 
 In next table is measured values for EV states.
 
@@ -56,7 +56,7 @@ In next table is measured values for EV states.
 | D           | 1636 mV     |
 | Low voltage | 728 mV      |
 
-# Calculated levels
+## Calculated levels
 
 Next, calculate midpoint voltage between states, that will be used as down threshold.
 For state D, the value is calculated as a sequence of the difference B-C and C-D.
