@@ -68,9 +68,9 @@ The dimensions of the board are 150x122 mm, designed to fit into the UM122 enclo
 
 ## Connection examples
 
-L1 - L3 connections onboard charging voltage meter, they are optional. Use 30mA fuses to connect them to the lines.
+L1, L2, L3 connections onboard charging voltage meter, they are optional. Use 30mA fuses to connect them to the lines.
 
-CT1 - CT3 connections for current transformers measuring charging current, they are optional. Can be used any with ratio 2000/1 (for example: DL-CT08CL5 or SCT-013-000). 
+CT1, CT2, CT3 connections for current transformers measuring charging current, they are optional. Can be used any with ratio 2000/1 (for example: DL-CT08CL5 or SCT-013-000). 
 
 If you don't want to have an onboard meter, set `Energy meter` `Mode` to `Dummy`, power will be calculated from actual charging current slider and the `AC voltage` value in the settings.
 

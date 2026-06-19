@@ -27,7 +27,7 @@ Quick demonstration video
 
 ## Tesla Wall Connector Gen2 box revived
 
-Found a broken Tesla Wall Connector GEN2, which has an exceptionally well built casing. Fire resistant and IP67 protected and also looking very good.
+If you find a broken Tesla Wall Connector GEN2, it's worth reviving it because it has an exceptionally well built casing. Fire resistant and IP67 protected and also looking very good.
 
 ![TWC2_revived](/images/twc2case_1.png)
 
@@ -39,7 +39,7 @@ To hold the board and the DIN rail components you need to [3D print some parts](
 
 ![TWC2_revived](/images/twc2case_3.png)
 
-My Tesla Wall Connector Gen2 had the LED board also broken so I replaced it with a WS2812 LED strip I had left rom room decoration. I used an ESP32C3 SuperMini board to drive it, and re-create light animations similar to how the Wall Connector behaves originally. 
+If your Tesla Wall Connector Gen2 has the LED board also broken it can be replaced it with a piece of WS2812 LED strip. Used a separate ESP32C3 SuperMini board to drive it, and re-create light animations similar to how the Wall Connector behaves originally. 
 
 Plus benefit is, that with a simple RF transmitter module, 433MHz signals can be used to trigger opening of the charge flap on Tesla vehicles. Using the [ESPHome component](https://github.com/nagyrobi/esp32evse-esphome) to interface with ESP32-EVSE not only integration with Home Assistant can be seamlessly achieved, but also implementing a physical button to both open the flap and stop charging (+releasing the cable from the car) thus the factory functionality of the Tesla Wall Connector can be simulated. The holder, spacer and the cover for the stip and the ESP32C3 SuperMini are also 3D printed.
 
@@ -50,8 +50,8 @@ The ESP32C3 SuperMini also handles the reset button on the box, being multifunct
 ![TWC2_revived](/images/twc2case_5.png)
 ![TWC2_revived](/images/twc2case_6.png)
 
-The contactor is 4NO 63A. I used 7x6mm2 cable to transfer even 22kW if needed. It's cheaper than the EVSE dedicated cables, wires 6 and 7 can carry CP signal from the EVSE board and the button press signal to the SuperMini board. I used a small push button on the plug itself to replicate original location. 
+The contactor is 4NO 63A. A 7x6mm2 cable is suitable to transfer even 22kW if needed. It's cheaper than the EVSE dedicated cables, wires 6 and 7 can carry CP signal from the EVSE board and the button press signal to the SuperMini board. A small push button on the plug itself can be installed to replicate original functionality. 
 
-I used RCM14-03 to detect AC and DC residual current leaks. I used in-line fuse holders (with glass 5x20mm 32mA fast fuses) for the voltage transformers.
+Use a RCM14-03 to detect AC and DC residual current leaks. Un-line fuse holders (with glass 5x20mm 32mA fast fuses) are appropriate for the voltage transformers behind the L1-L2-L2 connectors.
 
 Note: The T3 surge protector is entirely optional and it's only effective if the facility you install this in has T1 and T2 surge protectors installed at the grid entry point and the distribution panel respectively. Using a T3 (or T1/T2) protector on its own will not protect from a lightning surge coming in though the grid. They are only effective as a system where they are deployed at a properly cabled distance from each other.
