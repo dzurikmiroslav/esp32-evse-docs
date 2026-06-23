@@ -125,12 +125,14 @@ Notes about the [onboard enegry meter](energy-metering.md) functionality:
 
 ### With socket outlet
 
-![Wiring socket outlet](/images/esp32s2da-wiring-lock.png)
+![Wiring socket outlet](/images/esp32s2da-wiring-lock.png#only-light)
+![Wiring socket outlet](/images/esp32s2da-wiring-lock-dark.png#only-dark)
 
 Set **Max charging current** to the value of the circuit breaker that protects the EVSE.
 
 ### With fixed cable
 
-![Wiring fixed cable](/images/esp32s2da-wiring-cable.png)
+![Wiring fixed cable](/images/esp32s2da-wiring-cable.png#only-light)
+![Wiring fixed cable](/images/esp32s2da-wiring-cable-dark.png#only-dark)
 
 Set **Max charging current** to the lower value of the circuit breaker that protects the EVSE or cable maximum current.
