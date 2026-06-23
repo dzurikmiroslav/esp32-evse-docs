@@ -40,7 +40,7 @@ The firmware is written in ESP-IDF and is **not tied to any particular board**: 
  - [Modbus](20-software/Modbus.md) (RTU and TCP)
  - [LUA scripting](20-software/Lua.md)
  - [Nextion HMI](20-software/Nextion.md)
- - [AT commands](20-software/AT-Commands.md)
+ - [AT commands](20-software/AT-Commands.md) (third party HMI or systems integration)
  - REST API
  - WebDAV
  - Scheduler
