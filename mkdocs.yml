@@ -50,7 +50,7 @@ theme:
     code: Roboto Mono
 extra:
   social:
-    - icon: fontawesome/brands/patreon
+    - icon: fontawesome/brands/github-alt
       link: 'https://github.com/sponsors/dzurikmiroslav'
     - icon: fontawesome/brands/github
       link: 'https://github.com/dzurikmiroslav/esp32-evse/'
