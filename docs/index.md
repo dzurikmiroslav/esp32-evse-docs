@@ -47,9 +47,7 @@ The firmware is written in ESP-IDF and is **not tied to any particular board**: 
 
 ### Web installer
 
-Easy initial installation of esp32-evse firmware can be performed using a browser.
-
-[Web installer](installer.md)
+Easy initial installation of esp32-evse firmware can be performed using a [browser](installer.md).
 
 ### Device definition method
 

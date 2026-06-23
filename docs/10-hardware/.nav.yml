@@ -6,8 +6,7 @@ nav:
   - socket-lock.md
   - residual-current-monitor.md
   - energy-metering.md
-  - esp32s2-evse-d-a.md
   - CP-calibration.md
-  - LoRaWAN.md
+  - esp32s2-evse-d-a.md
   - "*"
   - build-examples.md

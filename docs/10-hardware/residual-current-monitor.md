@@ -27,7 +27,7 @@ rcm:
   testGpio: 26    # self-test output
 ```
 
-`gpio` is the trigger line read by the firmware; `testGpio` drives the module's self-test. Both must be present for the RCM to be usable. With the hardware fitted, enable the RCM in settings; without it, leave it disabled.
+`gpio` is the trigger line read by the firmware; `testGpio` drives the module's self-test. Both must be present for the RCM to be usable. With the hardware fitted, enable the RCM in Settings section of the web interface; without it, leave it disabled.
 
 !!! danger
     The RCM is a personal-safety device. It supplements, and does not replace, the protective devices required by your local wiring rules. Always verify the self-test and a real trip during commissioning, and follow the applicable installation standards for earth-fault and PEN protection.

@@ -12,7 +12,7 @@ The lock is a small **motorized actuator** of the type built into Type&nbsp;2 so
 
 ### Drive
 
-The actuator motor is driven through an H-bridge by **two control lines, A and B**. Their relative polarity sets the direction:
+The actuator motor can be driven through an H-bridge by **two control lines, A and B**. Their relative polarity sets the direction:
 
 - **Lock** &ndash; drive A high and B low for the *operating time*, then release both lines (the motor coasts and the mechanism holds).
 - **Unlock** &ndash; drive A low and B high for the *operating time*, then release both lines.
@@ -71,7 +71,9 @@ socketLock:
 
 `gpios` are the two motor control lines (A then B). `detectionGpio` is the position feedback input. `detectionDelay` is how long to wait after commanding a move before reading the contact, and `minBreakTime` is the floor for the user-configurable break time.
 
-For how these terminals are wired on a real board, see the socket lock section of the [ESP32-S2 EVSE DIY Alpha](esp32s2-evse-d-a.md#socket-lock).
+For how these terminals are wired on a real board, see the socket lock section of the [ESP32-S2 EVSE DIY Alpha](esp32s2-evse-d-a.md#socket-lock) as an example.
+
+If you're building an EVSE without a socket-outlet (having the cable directly attached) omit this configuration from `board.yaml`.
 
 !!! warning
     The socket lock is a safety feature: it prevents the plug being removed under load. Verify both locking and unlocking, and the fault behavior, before putting a socket-outlet charger into service. Make sure the actuator releases on power loss or fault so a vehicle can never be trapped.

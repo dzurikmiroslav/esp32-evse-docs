@@ -8,7 +8,7 @@ The firmware tracks **power**, **session energy** and per-phase **voltage and cu
 
 | Mode | Sensing used | Power is&hellip; |
 | ---- | ------------ | --------------- |
-| Dummy | none | calculated from the advertised charging current and a configured AC voltage |
+| Dummy | none | calculated from the set charging current and a configured AC voltage |
 | Current sensing | current transformers | calculated from measured current and a configured AC voltage |
 | Current and voltage sensing | current transformers + voltage taps | the real product of measured current and measured voltage |
 
@@ -18,7 +18,7 @@ A board can only use a mode its hardware supports: current sensing needs current
 
 ### Dummy
 
-With no measurement hardware, the meter assumes the vehicle draws exactly the current the charger advertises, and multiplies it by a configured **AC voltage** value. This gives a reasonable energy estimate for limits and display on a minimal board, but it cannot see the vehicle's actual draw.
+With no measurement hardware, the meter assumes the vehicle draws exactly the current the charger advertises as max, and multiplies it by a configured **AC voltage** value. This gives a reasonable energy estimate for limits and display on a minimal board, but it cannot see the vehicle's actual draw.
 
 ### Current sensing
 
@@ -34,7 +34,7 @@ Set the **three phases** option to match the installation. On a three-phase supp
 
 ## AC voltage setting
 
-In the dummy and current-sensing modes there is no measured voltage, so a configured **AC voltage** value (default 250&nbsp;V, adjustable) is used in the power calculation. In current-and-voltage mode this setting is not used because voltage is measured directly.
+In the dummy and current-sensing modes there is no measured voltage, so a configured **AC voltage** value is used in the power calculation. In current-and-voltage mode this setting is not used because voltage is measured directly.
 
 ## Configuration
 
@@ -50,7 +50,7 @@ energyMeter:
     scale: 0.47
 ```
 
-The presence of these blocks determines which modes the board can offer. The mode itself, the three-phase flag and the AC voltage are runtime settings stored in NVS.
+The presence of these blocks determines which modes the board can offer. The mode itself, the three-phase flag and the AC voltage are runtime settings stored in NVS, adjustable in the Settings section of the web interface.
 
 ## See also
 
