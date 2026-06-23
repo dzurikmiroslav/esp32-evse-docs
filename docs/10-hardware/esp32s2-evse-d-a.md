@@ -66,6 +66,34 @@ The dimensions of the board are 150x122 mm, designed to fit into the UM122 enclo
 | CT3    | Energy meter L3 current transformer    |                                          |
 | RCM    | Residual current monitor               | RCM14-01, RCM14-03                       |
 
+## Socket lock
+
+This board can drive a motorized **socket lock** actuator, used in socket-outlet mode to retain the plug for the duration of a charging session. Three terminals are dedicated to it:
+
+| Terminal | Role |
+| -------- | ---- |
+| R | Actuator control line A |
+| W | Actuator control line B |
+| B | Position detection input |
+
+**R** and **W** are the two control lines of an H-bridge that drives the actuator motor. To **lock**, the board energizes the pair in one polarity for the operating time; to **unlock**, it energizes them in the opposite polarity. After each move both lines are released, so the motor is only powered for the brief operating window rather than held.
+
+**B** is the detection input. To read the current position the board drives R and W to the same level &ndash; the motor sees no voltage difference and does not move &ndash; and reads the feedback contact on B after a short delay. A *detection polarity* setting selects whether the locked position reads high or low, so the same firmware works with actuators of either contact sense.
+
+On this board the detection is read **1000&nbsp;ms** after a move, and the minimum break time between operations is **1000&nbsp;ms** (from its `board.yaml`). The operating time, break time, retry count and detection polarity are adjustable in settings. The lock engages automatically when a vehicle is plugged in and releases when it is unplugged or the charger faults; charging will not begin until the lock has confirmed the locked position, and a lock or unlock failure puts the charger into the error state.
+
+The corresponding `board.yaml` block is:
+
+```yaml
+socketLock:
+  gpios: [20, 19]      # control lines on terminals R and W
+  detectionGpio: 34    # detection input on terminal B
+  detectionDelay: 1000
+  minBreakTime: 1000
+```
+
+For the full description of the locking sequence, detection, retries and fault handling, see [Socket lock](socket-lock.md). The wiring of a socket outlet with its actuator is shown in [With socket outlet](#with-socket-outlet) below.
+
 ## Connection examples
 
 L1, L2, L3 connections onboard charging voltage meter, they are optional. Use 30mA fuses to connect them to the lines.
@@ -93,4 +121,3 @@ Set `Max charging current` to the value of the circuit breaker that protects the
 ![Wiring fixed cable](/images/esp32s2da-wiring-cable.png)
 
 Set `Max charging current` to the lower value of the circuit breaker that protects the EVSE or cable maximum current.
-
