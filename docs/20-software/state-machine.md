@@ -107,9 +107,9 @@ Authorization is granted by an external action &ndash; the web UI, the REST API,
 
 Three optional limits can stop an in-progress session. Each is checked every loop and, when reached, makes *charging allowed* false so the machine drops to the paused sub-state:
 
-- **Consumption limit** (Wh) &ndash; stop after a given energy has been delivered.
+- **Consumption limit** (Wh) &ndash; stop after a given amount of energy has been delivered.
 - **Charging time limit** (s) &ndash; stop after a given session duration.
-- **Under-power limit** (W) &ndash; stop when delivered power stays below a threshold for **60&nbsp;seconds** continuously (typically meaning the vehicle has finished and tapered off).
+- **Under-power limit** (W) &ndash; stop when power demand decreases below a threshold for **60&nbsp;seconds** continuously.
 
 Limits and the values that feed them are described in [Charging control](charging-control.md).
 
@@ -117,8 +117,8 @@ Limits and the values that feed them are described in [Charging control](chargin
 
 Two independent flags, settable from external interfaces, gate the machine:
 
-- **Available** &ndash; when set false the machine goes to state **F** and holds the pilot at &minus;12&nbsp;V. The vehicle sees the charger as switched off. Clearing it returns the machine to A.
 - **Enabled** &ndash; when false, *charging allowed* is false, so the charger will not energize the vehicle (it stays in or returns to the paused sub-states) but the session and the pilot communication continue.
+- **Available** &ndash; when set false the machine goes to state **F** and holds the pilot at &minus;12&nbsp;V. The vehicle sees the charger as switched off. Clearing it returns the machine to state **A**.
 
 Both are covered in more detail in [Charging control](charging-control.md).
 
@@ -137,9 +137,9 @@ When any error bit is set the reported state is **E**: the pilot is driven to &m
 | `TEMPERATURE_HIGH` | Highest measured temperature above the threshold | Clears when temperature drops |
 | `TEMPERATURE_FAULT` | Temperature sensor read error | Clears when the sensor reads again |
 
-**Auto-clearing** errors start a **60&nbsp;second** timer; when it expires the bits are cleared and the machine resumes from A. This gives transient faults (a noisy pilot reading, a momentary residual-current event) time to settle before retrying.
+**Auto-clearing** errors start a **60&nbsp;second** timer; when it expires the bits are cleared and the machine resumes from state **A**. This gives transient faults (a noisy pilot reading, a momentary residual-current event) time to settle before retrying.
 
-**Latching** errors (lock/unlock faults) are not cleared automatically because repeatedly driving a jammed lock actuator is undesirable. While a lock fault is active the firmware will not actuate the lock again, including the release on entering E, so the mechanism is left untouched until the situation is addressed and the device is restarted.
+**Latching** errors (lock/unlock faults) are not cleared automatically because repeatedly driving a jammed lock actuator is undesirable. While a lock fault is active the firmware will not actuate the lock again, including the release on entering **E**, so the mechanism is left untouched until the situation is addressed and the device is manually restarted.
 
 ## Indicators
 

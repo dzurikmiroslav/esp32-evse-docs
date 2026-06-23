@@ -4,7 +4,7 @@ title: Charging control
 
 ## Overview
 
-This page covers the operational controls the [state machine](state-machine.md) consumes: how the charging current is chosen and advertised, the optional limits that end a session, and the gates &ndash; authorization, *enabled* and *available* &ndash; that decide whether the charger energizes the vehicle. All of these settings are stored in NVS and can be changed from the web UI, the [REST API](openapi.md), [Modbus](Modbus.md), [Lua scripts](Lua.md) or [AT commands](AT-Commands.md).
+This page covers the operational controls the [state machine](state-machine.md) consumes: how the charging current is chosen and advertised, the optional limits that end a session, and the gates &ndash; authorization, *enabled* and *available* &ndash; that decide whether the charger energizes the vehicle. All of these settings are stored in NVS and can be changed at runtime from the web UI, the [REST API](openapi.md), [Modbus](Modbus.md), [Lua scripts](Lua.md) or [AT commands](AT-Commands.md).
 
 ## Charging current
 
@@ -34,9 +34,9 @@ Three optional limits end an in-progress session. When a limit is reached, the s
 | Charging time limit | s | Stop after this session duration |
 | Under-power limit | W | Stop when delivered power stays below this value for 60&nbsp;seconds continuously |
 
-The **under-power** limit is how the charger detects that a vehicle has finished: a full battery tapers to a trickle, the power drops below the threshold, and after 60&nbsp;seconds of staying low the session is stopped. Each limit has a *default* value stored in NVS (applied at start-up) and a *live* value for the current session. A value of zero disables that limit. A *limit reached* flag is exposed to the external interfaces.
+The **under-power** limit is how the charger detects that a vehicle has finished: a full battery tapers to a trickle, the power drops below the threshold, and after 60&nbsp;seconds of staying low the session is stopped. This is useful when some EVs start decreasing charging power when reaching 80-90% SoC, one may want to stop charging at this level to preserve battery life: charging the battery only up to a set energy so it stops around 80&nbsp;%.
 
-These limits map directly to the criteria the author set for the original wallbox &ndash; for example charging the battery only up to a set energy so it stops around 80&nbsp;%.
+Each limit has a *default* value stored in NVS (applied at start-up) and a *live* value for the current session. A value of zero disables that limit. A *limit reached* flag is exposed to the external interfaces.
 
 ## Gates: authorization, enabled, available
 
@@ -55,6 +55,8 @@ The **enabled** flag pauses or resumes energy delivery without disturbing the ve
 The **available** flag switches the whole charger on or off as seen by the vehicle. When set unavailable the state machine goes to state **F** and holds the pilot at &minus;12&nbsp;V, so the vehicle treats the charger as switched off. Clearing it returns the charger to normal operation.
 
 The difference between *enabled* and *available* matters: a disabled charger still negotiates with the vehicle and can resume in seconds, while an unavailable charger presents itself as off.
+
+This is useful to temporarily render the EVSE to be out of order of usage.
 
 ## See also
 

@@ -1,5 +1,13 @@
 ignore:
   - index.md
 nav:
+  - control-pilot.md
+  - proximity-pilot.md
+  - socket-lock.md
+  - residual-current-monitor.md
+  - energy-metering.md
+  - esp32s2-evse-d-a.md
+  - CP-calibration.md
+  - LoRaWAN.md
   - "*"
   - build-examples.md
