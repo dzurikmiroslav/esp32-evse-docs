@@ -1,5 +1,14 @@
 ignore:
   - index.md
 nav:
+  - architecture.md
+  - state-machine.md
+  - charging-control.md
+  - Modbus.md
+  - Lua.md
+  - Nextion.md
+  - AT-Commands.md
+  - openapi.md
+  - Board-config-schema.md
   - "*"
   - LICENSE.md
