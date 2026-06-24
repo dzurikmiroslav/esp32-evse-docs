@@ -394,7 +394,7 @@ OK
 
 ### AT+ERROR
 
-Print ESP32-EVSE [error bits](https://github.com/dzurikmiroslav/esp32-evse/blob/2fbb62fade1f56bda89c5875871fef60d9c13a72/components/evse/include/evse.h#L11) in decimal value (use bitmask to decode).
+Print ESP32-EVSE [error bits](https://github.com/dzurikmiroslav/esp32-evse/blob/master/components/evse/include/evse.h#L11) in decimal value (use bitmask to decode).
 
 | Command      | Return Value          | Return Code |
 | ------------ | --------------------- | ----------- |
