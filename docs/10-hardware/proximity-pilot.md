@@ -36,6 +36,9 @@ The three `levels` are the measured ADC voltages (in mV) at the 13&nbsp;A, 20&nb
 
 If you're building an EVSE without a socket-outlet (having the cable directly attached) omit this configuration from `board.yaml`.
 
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.
+
 ## See also
 
 - [Control Pilot](control-pilot.md) &ndash; the line that advertises current to the vehicle.

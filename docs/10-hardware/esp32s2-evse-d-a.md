@@ -136,3 +136,6 @@ Set **Max charging current** to the value of the circuit breaker that protects t
 ![Wiring fixed cable](/images/esp32s2da-wiring-cable-dark.png#only-dark)
 
 Set **Max charging current** to the lower value of the circuit breaker that protects the EVSE or cable maximum current.
+
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.

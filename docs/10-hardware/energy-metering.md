@@ -52,6 +52,9 @@ energyMeter:
 
 The presence of these blocks determines which modes the board can offer. The mode itself, the three-phase flag and the AC voltage are runtime settings stored in NVS, adjustable in the Settings section of the web interface.
 
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.
+
 ## See also
 
 - [Charging control](../20-software/charging-control.md#charging-limits) &ndash; the consumption and under-power limits that consume these figures.

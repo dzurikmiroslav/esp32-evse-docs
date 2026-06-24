@@ -64,6 +64,9 @@ The five `levels` are the measured ADC voltages (in mV) for the 12&nbsp;V, 9&nbs
 !!! danger
     The Control Pilot circuit and its calibration are safety-critical. Incorrect thresholds can cause the charger to misread the vehicle state &ndash; for example energizing when it should not, or failing to detect a diode fault. Calibrate against a known-good reference and verify every state before connecting a vehicle.
 
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.
+
 ## See also
 
 - [Control Pilot calibration](CP-calibration.md) &ndash; obtaining the `levels` values.

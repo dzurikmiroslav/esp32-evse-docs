@@ -67,4 +67,8 @@ The contactor is 4NO 63A. A 7x6mm2 cable is suitable to transfer even 22kW if ne
 
 Use a RCM14-03 to detect AC and DC residual current leaks. Un-line fuse holders (with glass 5x20mm 32mA fast fuses) are appropriate for the voltage transformers behind the L1-L2-L2 connectors.
 
-Note: The T3 surge protector is entirely optional and it's only effective if the facility you install this in has T1 and T2 surge protectors installed at the grid entry point and the distribution panel respectively. Using a T3 (or T1/T2) protector on its own will not protect from a lightning surge coming in though the grid. They are only effective as a system where they are deployed at a properly cabled distance from each other.
+!!! note 
+    The T3 surge protector is entirely optional and it's only effective if the facility you install this in has T1 and T2 surge protectors installed at the grid entry point and the distribution panel respectively. Using a T3 (or T1/T2) protector on its own will not protect from a lightning surge coming in though the grid. They are only effective as a system where they are deployed at a properly cabled distance from each other.
+
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.

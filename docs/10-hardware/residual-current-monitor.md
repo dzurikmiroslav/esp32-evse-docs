@@ -32,6 +32,9 @@ rcm:
 !!! danger
     The RCM is a personal-safety device. It supplements, and does not replace, the protective devices required by your local wiring rules. Always verify the self-test and a real trip during commissioning, and follow the applicable installation standards for earth-fault and PEN protection.
 
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.
+
 ## See also
 
 - [State machine](../20-software/state-machine.md#errors) &ndash; how RCM faults map to the error state.

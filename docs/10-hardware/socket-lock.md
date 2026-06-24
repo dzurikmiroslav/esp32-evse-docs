@@ -78,6 +78,9 @@ If you're building an EVSE without a socket-outlet (having the cable directly at
 !!! warning
     The socket lock is a safety feature: it prevents the plug being removed under load. Verify both locking and unlocking, and the fault behavior, before putting a socket-outlet charger into service. Make sure the actuator releases on power loss or fault so a vehicle can never be trapped.
 
+!!! warning "CAUTION"
+    Working with high voltage is dangerous. Always follow local laws and regulations regarding high voltage work. If you are unsure about the rules in your country, consult a licensed electrician for more information.
+
 ## See also
 
 - [ESP32-S2 EVSE DIY Alpha](esp32s2-evse-d-a.md#socket-lock) &ndash; wiring and terminals.
