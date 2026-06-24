@@ -432,3 +432,10 @@ return {
     end
 }
 ```
+
+## See also
+
+- [Modbus](Modbus.md)
+- [Nextion](Nextion.md)
+- [AT commands](AT-Commands.md)
+- [REST API](rest-api.md)

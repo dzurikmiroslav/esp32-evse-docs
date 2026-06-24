@@ -603,3 +603,10 @@ you can edit Lua scripts in place.
     both were removed, and the API was reorganised in the v1.1.0 *WebUI & REST
     api refactoring*. The endpoints, field names and value ranges below reflect
     the refactored API.
+
+## See also
+
+- [Modbus](Modbus.md)
+- [Lua](Lua.md)
+- [Nextion](Nextion.md)
+- [AT commands](AT-Commands.md)

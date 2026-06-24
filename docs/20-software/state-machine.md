@@ -159,4 +159,3 @@ The optional charging and error LEDs follow the state directly:
 - [Charging control](charging-control.md) &ndash; current selection, limits, authorization, enable/available.
 - [Architecture](architecture.md) &ndash; how the state machine fits into the firmware.
 - [Control Pilot](../10-hardware/control-pilot.md) and [Control Pilot calibration](../10-hardware/CP-calibration.md).
-- [Modbus reference](Modbus.md) &ndash; reading the state and error bits, and driving the gates over Modbus.

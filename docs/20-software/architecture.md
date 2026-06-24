@@ -79,4 +79,4 @@ To avoid getting stuck in a crash loop caused by a bad hardware description, the
 - [State machine](state-machine.md) &ndash; the charging control sequence.
 - [Charging control](charging-control.md) &ndash; the operational settings the state machine consumes.
 - [Board config schema](Board-config-schema.md) &ndash; the structure of `board.yaml`.
-- [Modbus](Modbus.md), [Lua](Lua.md), [Nextion](Nextion.md), [AT commands](AT-Commands.md) &ndash; external interfaces.
+- [Modbus](Modbus.md), [Lua](Lua.md), [Nextion](Nextion.md), [AT commands](AT-Commands.md), [REST API](rest-api.md) &ndash; external interfaces.

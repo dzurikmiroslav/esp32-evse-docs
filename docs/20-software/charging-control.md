@@ -64,4 +64,3 @@ This is useful to temporarily render the EVSE to be out of order of usage.
 - [Control Pilot](../10-hardware/control-pilot.md) &ndash; how current is advertised.
 - [Proximity Pilot](../10-hardware/proximity-pilot.md) &ndash; cable current rating in socket-outlet mode.
 - [Energy metering](../10-hardware/energy-metering.md) &ndash; where consumption and power come from.
-- [Modbus reference](Modbus.md) &ndash; register map for all of the above.

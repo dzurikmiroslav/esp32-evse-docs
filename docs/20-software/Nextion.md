@@ -91,3 +91,10 @@ Set dual-state button touch press event:
 ## Advanced example
 
 For an advanced example of HMI built with a Nextion display check out the [esp32-evse-nextion](https://github.com/dzurikmiroslav/esp32-evse-nextion) repository.
+
+## See also
+
+- [Modbus](Modbus.md)
+- [Lua](Lua.md)
+- [AT commands](AT-Commands.md)
+- [REST API](rest-api.md)
