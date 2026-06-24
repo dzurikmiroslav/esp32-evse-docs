@@ -382,7 +382,9 @@ Print ESP32-EVSE internal state according to J1772 standard.
 
 | Parameter | Access | Type  | Description                                                           |
 | --------- | ------ | ----- | --------------------------------------------------------------------- |
-| `<state>` | RO     | uint8 | EVSE state number (A=0, B1=1, B2=2, C1=3, C2=4, D1=5, D2=6, E=7, F=8) |
+| `<state>` | RO     | uint8 | IEC 61851 / J1772 state: `A`=`0`, `B1`=`1`, `B2`=`2`, `C1`=`3`, `C2`=`4`, `D1`=`5`, `D2`=`6`, `E`=`7`, `F`=`8`. See [State machine](state-machine.md) |
+
+
 
 Example:
 
