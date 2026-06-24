@@ -21,6 +21,8 @@ An **EVSE** (Electric Vehicle Supply Equipment) is the equipment between the AC 
 
 This project is firmware that turns an **ESP32-based board** into a **fully featured AC EVSE** following the **SAE J1772 / IEC 61851-1** standard. On top of the core charging control it adds the features expected of a modern wallbox &ndash; energy metering, charging limits, access control, a responsive web interface, over-the-air updates, and a range of integration interfaces ([Modbus](20-software/Modbus.md), [Lua scripting](20-software/Lua.md), [Nextion HMI](20-software/Nextion.md), [AT commands](20-software/AT-Commands.md), [REST](20-software/rest-api.md)). See the full list under [Key features](#key-features).
 
+Many users who built the unit [confirmed it working with a number of vehicles](https://github.com/dzurikmiroslav/esp32-evse/discussions/160).
+
 ## How it works
 
 The charger and the vehicle communicate over two signalling lines defined by the standard:
