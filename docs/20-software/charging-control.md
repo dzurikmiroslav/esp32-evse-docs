@@ -59,7 +59,7 @@ This is useful to temporarily render the EVSE to be out of order of usage.
 When **require authorization** is on, a session does not start charging until it is explicitly authorized. Authorization is granted from any interface (web UI, REST, Modbus, Lua, AT) and is valid for **60&nbsp;seconds**; it must coincide with the vehicle being plugged in, and it is reset on every disconnect so each plug-in needs a fresh grant. This is the hook for access control &ndash; for example an RFID reader driven by a script that authorizes only known cards. While the charger is waiting, a *pending authorization* flag is exposed.
 
 !!! note "Dynamic load management"
-    There is no built-in grid-side load balancing, but the charging current can be steered continuously by writing the charging-current value from an external source. A [Lua script](Lua.md) can read another meter (over a serial input, an analog input, or MQTT) and lower the charging current &ndash; or pause charging &ndash; when the rest of the building load is high, then raise it again. Modbus and the REST API expose the same control for an external controller.
+    There is no built-in grid-side load balancing, but the charging current can be steered continuously by writing the charging-current value from an external source. A [Lua script](Lua.md) can read another meter (over a serial input, an analog input, or MQTT) and lower the charging current &ndash; or pause charging &ndash; when the rest of the building load is high, then raise it again. ModBUS, AT Commands and the REST API expose the same control for an external controller.
 
 ## See also
 
