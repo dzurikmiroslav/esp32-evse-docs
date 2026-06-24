@@ -1,331 +1,528 @@
 ---
 title: Board configuration schema
 ---
+
 # Board configuration schema
 
-[Reference schema](http://json-schema.org/draft-07/schema#)
+The firmware ships as **one binary per ESP32 family** and contains no GPIO
+numbers, ADC channels or board-specific wiring. Everything that describes a
+particular board lives in a single YAML file, `board.yaml`, read at boot. The
+same firmware therefore runs on any board built around a given chip — you only
+write a config file. See [Architecture](architecture.md) for the bigger picture.
 
-Current [Board schema](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config) YAML configurations
+This page documents the current schema, `board-config-schema-1.json`
+([in the repo](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config)).
 
-## Definitions
+!!! note
+    The auto-generated reference that previously lived here described the older
+    *flat* schema (top-level keys like `ledChargingGpio`, `buttonGpio`). The
+    current schema is **nested** (`leds.charging.gpio`, `button.gpio`, …). The
+    structure and field names below match the nested schema actually parsed by
+    the firmware.
 
-### Board config
+## Where the file lives
 
-Board hardware configuration
+`board.yaml` is stored on a dedicated **LittleFS** partition labelled `usr`
+(320 KB), mounted at `/usr`, so the full path on the device is
+`/usr/board.yaml`.
 
- - Type: `object`
- - <i id="/definitions/BoardConfig">path: #/definitions/BoardConfig</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/BoardConfig/properties/deviceName">deviceName</b> `required`
-		 - _Name of the device_
-		 - Type: `string`
-		 - <i id="/definitions/BoardConfig/properties/deviceName">path: #/definitions/BoardConfig/properties/deviceName</i>
-		 - Length:  &le; 32
-	 - <b id="#/definitions/BoardConfig/properties/ledChargingGpio">ledChargingGpio</b>
-		 - _Charging led gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/BoardConfig/properties/ledChargingGpio">path: #/definitions/BoardConfig/properties/ledChargingGpio</i>
-	 - <b id="#/definitions/BoardConfig/properties/ledErrorGpio">ledErrorGpio</b>
-		 - _Error led gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/BoardConfig/properties/ledErrorGpio">path: #/definitions/BoardConfig/properties/ledErrorGpio</i>
-	 - <b id="#/definitions/BoardConfig/properties/ledWifiGpio">ledWifiGpio</b>
-		 - _WiFi led gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/BoardConfig/properties/ledWifiGpio">path: #/definitions/BoardConfig/properties/ledWifiGpio</i>
-	 - <b id="#/definitions/BoardConfig/properties/buttonGpio">buttonGpio</b>
-		 - _Button gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/BoardConfig/properties/buttonGpio">path: #/definitions/BoardConfig/properties/buttonGpio</i>
-	 - <b id="#/definitions/BoardConfig/properties/pilot">pilot</b> `required`
-		 - <i id="/definitions/BoardConfig/properties/pilot">path: #/definitions/BoardConfig/properties/pilot</i>
-		 - &#36;ref: [#/definitions/Pilot](#/definitions/Pilot)
-	 - <b id="#/definitions/BoardConfig/properties/proximity">proximity</b>
-		 - <i id="/definitions/BoardConfig/properties/proximity">path: #/definitions/BoardConfig/properties/proximity</i>
-		 - &#36;ref: [#/definitions/Proximity](#/definitions/Proximity)
-	 - <b id="#/definitions/BoardConfig/properties/acRelayGpio">acRelayGpio</b> `required`
-		 - _AC relay gpio number for controlling mains contactor_
-		 - Type: `integer`
-		 - <i id="/definitions/BoardConfig/properties/acRelayGpio">path: #/definitions/BoardConfig/properties/acRelayGpio</i>
-	 - <b id="#/definitions/BoardConfig/properties/socketLock">socketLock</b>
-		 - <i id="/definitions/BoardConfig/properties/socketLock">path: #/definitions/BoardConfig/properties/socketLock</i>
-		 - &#36;ref: [#/definitions/SocketLock](#/definitions/SocketLock)
-	 - <b id="#/definitions/BoardConfig/properties/rcm">rcm</b>
-		 - <i id="/definitions/BoardConfig/properties/rcm">path: #/definitions/BoardConfig/properties/rcm</i>
-		 - &#36;ref: [#/definitions/Rcm](#/definitions/Rcm)
-	 - <b id="#/definitions/BoardConfig/properties/energyMeter">energyMeter</b>
-		 - <i id="/definitions/BoardConfig/properties/energyMeter">path: #/definitions/BoardConfig/properties/energyMeter</i>
-		 - &#36;ref: [#/definitions/EnergyMeter](#/definitions/EnergyMeter)
-	 - <b id="#/definitions/BoardConfig/properties/auxInputs">auxInputs</b>
-		 - _Aux inputs configuration_
-		 - Type: `array`
-		 - <i id="/definitions/BoardConfig/properties/auxInputs">path: #/definitions/BoardConfig/properties/auxInputs</i>
-			 - **_Items_**
-			 - <i id="/definitions/BoardConfig/properties/auxInputs/items">path: #/definitions/BoardConfig/properties/auxInputs/items</i>
-			 - &#36;ref: [#/definitions/AuxInput](#/definitions/AuxInput)
-	 - <b id="#/definitions/BoardConfig/properties/auxOutputs">auxOutputs</b>
-		 - _Aux outputs configuration_
-		 - Type: `array`
-		 - <i id="/definitions/BoardConfig/properties/auxOutputs">path: #/definitions/BoardConfig/properties/auxOutputs</i>
-			 - **_Items_**
-			 - <i id="/definitions/BoardConfig/properties/auxOutputs/items">path: #/definitions/BoardConfig/properties/auxOutputs/items</i>
-			 - &#36;ref: [#/definitions/AuxOutput](#/definitions/AuxOutput)
-	 - <b id="#/definitions/BoardConfig/properties/auxAnalogInputs">auxAnalogInputs</b>
-		 - _Aux analog inputs configuration_
-		 - Type: `array`
-		 - <i id="/definitions/BoardConfig/properties/auxAnalogInputs">path: #/definitions/BoardConfig/properties/auxAnalogInputs</i>
-			 - **_Items_**
-			 - <i id="/definitions/BoardConfig/properties/auxAnalogInputs/items">path: #/definitions/BoardConfig/properties/auxAnalogInputs/items</i>
-			 - &#36;ref: [#/definitions/AuxAnalogInput](#/definitions/AuxAnalogInput)
-	 - <b id="#/definitions/BoardConfig/properties/serials">serials</b>
-		 - _Serial ports configuration_
-		 - Type: `array`
-		 - <i id="/definitions/BoardConfig/properties/serials">path: #/definitions/BoardConfig/properties/serials</i>
-		 - Item Count:  &le; 3
-			 - **_Items_**
-			 - <i id="/definitions/BoardConfig/properties/serials/items">path: #/definitions/BoardConfig/properties/serials/items</i>
-			 - &#36;ref: [#/definitions/Serial](#/definitions/Serial)
-	 - <b id="#/definitions/BoardConfig/properties/onewire">onewire</b>
-		 - <i id="/definitions/BoardConfig/properties/onewire">path: #/definitions/BoardConfig/properties/onewire</i>
-		 - &#36;ref: [#/definitions/Onewire](#/definitions/Onewire)
+- On first boot, or whenever the file is missing, the firmware writes a built-in
+  default for the target chip (`board_esp32.yaml`, `board_esp32s2.yaml` or
+  `board_esp32s3.yaml`) to that path.
+- A **factory reset** (hold the button) renames the current file to
+  `board_invalid.yaml` and regenerates the default on the next boot.
+- The same partition is exposed over [WebDAV](rest-api.md#related-webdav-file-access),
+  so you can edit the file in place at `dav://<device-ip>/dav/usr/board.yaml`.
+  It also holds the [Lua](Lua.md) scripts under `/usr/lua/`.
 
+!!! warning
+    The config is parsed with a hard assertion: if `board.yaml` is **malformed
+    or fails validation, the device aborts and reboots** rather than starting
+    with a bad configuration. Validate before you save — keep a known-good copy,
+    and use the schema in your editor (below) to catch mistakes early.
 
-### EnergyMeter
+### Editor autocompletion
 
-Energy meter configuration
+Both example files start with a language-server directive so editors with the
+YAML extension give you completion and validation against the schema:
 
- - Type: `object`
- - <i id="/definitions/EnergyMeter">path: #/definitions/EnergyMeter</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/EnergyMeter/properties/currentAdcChannels">currentAdcChannels</b> `required`
-		 - _Current sensing of L1, L2, L3 adc1 channels, for single phase set array with one item_
-		 - Type: `array`
-		 - <i id="/definitions/EnergyMeter/properties/currentAdcChannels">path: #/definitions/EnergyMeter/properties/currentAdcChannels</i>
-		 - Item Count:  &le; 3
-			 - **_Items_**
-			 - Type: `integer`
-			 - <i id="/definitions/EnergyMeter/properties/currentAdcChannels/items">path: #/definitions/EnergyMeter/properties/currentAdcChannels/items</i>
-	 - <b id="#/definitions/EnergyMeter/properties/currentScale">currentScale</b> `required`
-		 - _Multiplier of measured current values_
-		 - Type: `number`
-		 - <i id="/definitions/EnergyMeter/properties/currentScale">path: #/definitions/EnergyMeter/properties/currentScale</i>
-	 - <b id="#/definitions/EnergyMeter/properties/voltageAdcChannels">voltageAdcChannels</b>
-		 - _Voltage sensing of L1, L2, L3 adc1 channels, for single phase set array with one item_
-		 - Type: `array`
-		 - <i id="/definitions/EnergyMeter/properties/voltageAdcChannels">path: #/definitions/EnergyMeter/properties/voltageAdcChannels</i>
-		 - Item Count:  &le; 3
-			 - **_Items_**
-			 - Type: `integer`
-			 - <i id="/definitions/EnergyMeter/properties/voltageAdcChannels/items">path: #/definitions/EnergyMeter/properties/voltageAdcChannels/items</i>
-	 - <b id="#/definitions/EnergyMeter/properties/voltageScale">voltageScale</b>
-		 - _Multiplier of measured voltage values_
-		 - Type: `number`
-		 - <i id="/definitions/EnergyMeter/properties/voltageScale">path: #/definitions/EnergyMeter/properties/voltageScale</i>
+```yaml
+# yaml-language-server: $schema=https://github.com/dzurikmiroslav/esp32-evse/raw/refs/heads/master/board-config/board-config-schema-1.json
+```
 
+## GPIO and ADC conventions
 
-### Control Pilot
+- All pin fields are **raw GPIO numbers** for the chip, not board silk-screen
+  labels. Pick pins valid for the function on your chip (e.g. input-only pins
+  cannot drive a relay).
+- Every `adcChannel` / `adcChannels` field is an **ADC1 channel index**, not a
+  GPIO number. Only ADC1 is usable while Wi-Fi is active. Map the channel to its
+  pin from the Espressif datasheet for your chip. The control pilot and energy
+  meter sensing must be on ADC1.
 
-Control Pilot signal configuration
+## Top-level structure
 
- - Type: `object`
- - <i id="/definitions/Pilot">path: #/definitions/Pilot</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/Pilot/properties/gpio">gpio</b> `required`
-		 - _Generating pwm gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/Pilot/properties/gpio">path: #/definitions/Pilot/properties/gpio</i>
-	 - <b id="#/definitions/Pilot/properties/adcChannel">adcChannel</b> `required`
-		 - _Measuring adc1 channel_
-		 - Type: `integer`
-		 - <i id="/definitions/Pilot/properties/adcChannel">path: #/definitions/Pilot/properties/adcChannel</i>
-	 - <b id="#/definitions/Pilot/properties/levels">levels</b> `required`
-		 - _Measured threshold values for voltages 12, 9, 6, 3 -12 in mV_
-		 - Type: `array`
-		 - <i id="/definitions/Pilot/properties/levels">path: #/definitions/Pilot/properties/levels</i>
-		 - Item Count: between 5 and 5
-			 - **_Items_**
-			 - Type: `integer`
-			 - <i id="/definitions/Pilot/properties/levels/items">path: #/definitions/Pilot/properties/levels/items</i>
+| Key | Type | Required | Purpose |
+| --- | ---- | :------: | ------- |
+| `deviceName` | string (≤ 32) | ✅ | Human-readable device name |
+| `button` | object | ✅ | The multifunction button |
+| `pilot` | object | ✅ | [Control pilot](../10-hardware/control-pilot.md) (PWM + sensing) |
+| `acRelay` | object | ✅ | Mains contactor control |
+| `ota` | object | ✅ | OTA update channels |
+| `leds` | object | — | Status LEDs |
+| `proximity` | object | — | [Proximity pilot](../10-hardware/proximity-pilot.md) sensing |
+| `socketLock` | object | — | [Socket lock](../10-hardware/socket-lock.md) actuator |
+| `rcm` | object | — | [Residual current monitor](../10-hardware/residual-current-monitor.md) |
+| `energyMeter` | object | — | [Energy metering](../10-hardware/energy-metering.md) |
+| `aux` | object | — | Auxiliary GPIO / ADC exposed to scripting |
+| `serials` | array | — | Serial ports (UART / RS-485) |
+| `onewire` | object | — | 1-Wire bus (temperature sensor) |
 
+No properties beyond those listed in each object are allowed
+(`additionalProperties: false` throughout) — a typo'd key is a validation error.
+A peripheral that is simply omitted is treated as absent, and its driver does
+nothing.
 
-### Proximity Pilot
+## Required sections
 
-Proximity pilot configuration
+### `deviceName`
 
- - Type: `object`
- - <i id="/definitions/Proximity">path: #/definitions/Proximity</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/Proximity/properties/adcChannel">adcChannel</b> `required`
-		 - _Measuring adc1 channel_
-		 - Type: `integer`
-		 - <i id="/definitions/Proximity/properties/adcChannel">path: #/definitions/Proximity/properties/adcChannel</i>
-	 - <b id="#/definitions/Proximity/properties/levels">levels</b> `required`
-		 - _Measured threshold values for cable 13A, 20A, 32A in mV_
-		 - Type: `array`
-		 - <i id="/definitions/Proximity/properties/levels">path: #/definitions/Proximity/properties/levels</i>
-		 - Item Count: between 3 and 3
-			 - **_Items_**
-			 - Type: `integer`
-			 - <i id="/definitions/Proximity/properties/levels/items">path: #/definitions/Proximity/properties/levels/items</i>
+A string up to 32 characters, shown in the UI and via
+[`GET /board-config`](rest-api.md#get-board-config).
 
+### `button`
 
-### Socket Lock
+The single multifunction button (short press / long press / factory reset).
 
-Socket lock configuration
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `gpio` | integer | ✅ | Button GPIO (active by board wiring) |
 
- - Type: `object`
- - <i id="/definitions/SocketLock">path: #/definitions/SocketLock</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/SocketLock/properties/aGpio">aGpio</b> `required`
-		 - _Lock A gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/SocketLock/properties/aGpio">path: #/definitions/SocketLock/properties/aGpio</i>
-	 - <b id="#/definitions/SocketLock/properties/bGpio">bGpio</b> `required`
-		 - _Lock B gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/SocketLock/properties/bGpio">path: #/definitions/SocketLock/properties/bGpio</i>
-	 - <b id="#/definitions/SocketLock/properties/detectionGpio">detectionGpio</b> `required`
-		 - _Detection gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/SocketLock/properties/detectionGpio">path: #/definitions/SocketLock/properties/detectionGpio</i>
-	 - <b id="#/definitions/SocketLock/properties/detectionDelay">detectionDelay</b> `required`
-		 - _Delay after locking/unlocking for check state in ms_
-		 - Type: `integer`
-		 - <i id="/definitions/SocketLock/properties/detectionDelay">path: #/definitions/SocketLock/properties/detectionDelay</i>
-	 - <b id="#/definitions/SocketLock/properties/minBreakTime">minBreakTime</b> `required`
-		 - _Min break time for repeated locking/unlocking in ms_
-		 - Type: `integer`
-		 - <i id="/definitions/SocketLock/properties/minBreakTime">path: #/definitions/SocketLock/properties/minBreakTime</i>
+```yaml
+button:
+  gpio: 0
+```
 
+### `pilot`
 
-### RCM
+Control pilot: a PWM output plus an ADC1 input that reads the CP voltage to
+detect vehicle state. See [Control pilot](../10-hardware/control-pilot.md) and
+[CP calibration](../10-hardware/CP-calibration.md).
 
-Residual current monitor configuration
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `gpio` | integer | ✅ | PWM generation GPIO |
+| `adcChannel` | integer | ✅ | ADC1 channel that measures CP |
+| `levels` | integer[5] | ✅ | ADC thresholds in **mV** for the +12, +9, +6, +3 and −12 V CP levels, in that order |
 
- - Type: `object`
- - <i id="/definitions/Rcm">path: #/definitions/Rcm</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/Rcm/properties/gpio">gpio</b> `required`
-		 - _Sensing gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/Rcm/properties/gpio">path: #/definitions/Rcm/properties/gpio</i>
-	 - <b id="#/definitions/Rcm/properties/testGpio">testGpio</b> `required`
-		 - _Test gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/Rcm/properties/testGpio">path: #/definitions/Rcm/properties/testGpio</i>
+```yaml
+pilot:
+  gpio: 27
+  adcChannel: 0
+  levels: [2405, 2099, 1792, 1484, 728]
+```
 
+The five `levels` are board-specific (they depend on the CP divider/clamp
+network) and are what the [CP calibration](../10-hardware/CP-calibration.md)
+procedure produces.
 
-### Aux input
+### `acRelay`
 
-Auxiliary inputs configuration
+Controls the mains contactor.
 
- - Type: `object`
- - <i id="/definitions/AuxInput">path: #/definitions/AuxInput</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/AuxInput/properties/name">name</b> `required`
-		 - _Name_
-		 - Type: `string`
-		 - <i id="/definitions/AuxInput/properties/name">path: #/definitions/AuxInput/properties/name</i>
-		 - Length:  &le; 8
-	 - <b id="#/definitions/AuxInput/properties/gpio">gpio</b> `required`
-		 - _The gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/AuxInput/properties/gpio">path: #/definitions/AuxInput/properties/gpio</i>
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `gpios` | integer[1..2] | ✅ | Contactor control GPIOs |
 
+The array length selects single- vs. split-phase switching:
 
-### Aux output
+- **One GPIO** — drives all phases together (L1–L3).
+- **Two GPIOs** — the first drives L1, the second drives L2–L3, allowing the
+  EVSE to switch between single-phase and three-phase charging.
 
-Auxiliary outputs configuration
+```yaml
+acRelay:
+  gpios: [26]
+```
 
- - Type: `object`
- - <i id="/definitions/AuxOutput">path: #/definitions/AuxOutput</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/AuxOutput/properties/name">name</b> `required`
-		 - _Name_
-		 - Type: `string`
-		 - <i id="/definitions/AuxOutput/properties/name">path: #/definitions/AuxOutput/properties/name</i>
-		 - Length:  &le; 8
-	 - <b id="#/definitions/AuxOutput/properties/gpio">gpio</b> `required`
-		 - _The gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/AuxOutput/properties/gpio">path: #/definitions/AuxOutput/properties/gpio</i>
+### `ota`
 
+Over-the-air update sources. Each channel points at a JSON descriptor that the
+[firmware update endpoints](rest-api.md#firmware-ota) consult.
 
-### Aux analog input
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `channels` | array[1..3] | ✅ | One to three OTA channels |
 
-Auxiliary analog input configuration
+Each **channel**:
 
- - Type: `object`
- - <i id="/definitions/AuxAnalogInput">path: #/definitions/AuxAnalogInput</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/AuxAnalogInput/properties/name">name</b> `required`
-		 - _Name_
-		 - Type: `string`
-		 - <i id="/definitions/AuxAnalogInput/properties/name">path: #/definitions/AuxAnalogInput/properties/name</i>
-		 - Length:  &le; 8
-	 - <b id="#/definitions/AuxAnalogInput/properties/adcChannel">adcChannel</b> `required`
-		 - _The adc1 channel_
-		 - Type: `integer`
-		 - <i id="/definitions/AuxAnalogInput/properties/adcChannel">path: #/definitions/AuxAnalogInput/properties/adcChannel</i>
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `name` | string (≤ 16) | ✅ | Channel label shown in the UI |
+| `path` | string | ✅ | URL of the channel's JSON descriptor |
 
+```yaml
+ota:
+  channels:
+    - name: stable
+      path: https://dzurikmiroslav.github.io/esp32-evse/ota/stable/esp32.json
+    # - name: testing
+    #   path: https://dzurikmiroslav.github.io/esp32-evse/ota/testing/esp32.json
+```
 
-### Serial
+## Optional sections
 
-Serial ports configuration
+### `leds`
 
- - Type: `object`
- - <i id="/definitions/Serial">path: #/definitions/Serial</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/Serial/properties/type">type</b>
-		 - _Type_
-		 - Type: `string`
-		 - <i id="/definitions/Serial/properties/type">path: #/definitions/Serial/properties/type</i>
-		 - The value is restricted to the following: 
-			 1. _"uart"_
-			 2. _"rs485"_
-	 - <b id="#/definitions/Serial/properties/name">name</b>
-		 - _Name_
-		 - Type: `string`
-		 - <i id="/definitions/Serial/properties/name">path: #/definitions/Serial/properties/name</i>
-		 - Length:  &le; 16
-	 - <b id="#/definitions/Serial/properties/rxdGpio">rxdGpio</b>
-		 - _RX data gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/Serial/properties/rxdGpio">path: #/definitions/Serial/properties/rxdGpio</i>
-	 - <b id="#/definitions/Serial/properties/txdGpio">txdGpio</b>
-		 - _TX data gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/Serial/properties/txdGpio">path: #/definitions/Serial/properties/txdGpio</i>
-	 - <b id="#/definitions/Serial/properties/rtsGpio">rtsGpio</b>
-		 - _Flow control signal gpio number, required for rs485_
-		 - Type: `integer`
-		 - <i id="/definitions/Serial/properties/rtsGpio">path: #/definitions/Serial/properties/rtsGpio</i>
+Up to three status LEDs; each is an object with a single `gpio`. Any of the
+three may be omitted.
 
+| Sub-key | Meaning |
+| ------- | ------- |
+| `charging` | Charging-state LED |
+| `error` | Error LED |
+| `wifi` | Wi-Fi-state LED |
 
-### Onewire
+```yaml
+leds:
+  charging:
+    gpio: 19
+  error:
+    gpio: 18
+  wifi:
+    gpio: 17
+```
 
-Onewire bus configuration
+### `proximity`
 
- - Type: `object`
- - <i id="/definitions/Onewire">path: #/definitions/Onewire</i>
- - This schema <u>does not</u> accept additional properties.
- - **_Properties_**
-	 - <b id="#/definitions/Onewire/properties/gpio">gpio</b> `required`
-		 - _Onewire bus gpio number_
-		 - Type: `integer`
-		 - <i id="/definitions/Onewire/properties/gpio">path: #/definitions/Onewire/properties/gpio</i>
-	 - <b id="#/definitions/Onewire/properties/temperatureSensor">temperatureSensor</b> `required`
-		 - _Has temperature sensor on onewire bus_
-		 - Type: `boolean`
-		 - <i id="/definitions/Onewire/properties/temperatureSensor">path: #/definitions/Onewire/properties/temperatureSensor</i>
+Proximity pilot sensing — reads the cable's current rating resistor. Used in
+socket-outlet mode. See [Proximity pilot](../10-hardware/proximity-pilot.md).
 
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `adcChannel` | integer | ✅ | ADC1 channel measuring PP |
+| `levels` | integer[3] | ✅ | ADC thresholds in **mV** for 13 A, 20 A and 32 A cables, in that order |
+
+```yaml
+proximity:
+  adcChannel: 3
+  levels: [1650, 820, 430]
+```
+
+### `socketLock`
+
+Motorized socket lock actuator (Type-2 socket outlets). See
+[Socket lock](../10-hardware/socket-lock.md).
+
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `gpios` | integer[2] | ✅ | Drive GPIOs for lock coil A and B (direction) |
+| `detectionGpio` | integer | ✅ | Lock-state feedback input |
+| `detectionDelay` | integer | ✅ | Delay after actuating before reading state, in ms |
+| `minBreakTime` | integer | ✅ | Minimum pause between repeated lock/unlock actions, in ms |
+
+```yaml
+socketLock:
+  gpios: [20, 19]
+  detectionGpio: 34
+  detectionDelay: 1000
+  minBreakTime: 1000
+```
+
+The operating time, retry count and detection polarity are **runtime** settings
+([`/config/evse`](rest-api.md#getpost-configevse)), not part of `board.yaml`.
+
+### `rcm`
+
+Residual current monitor (6 mA DC / AC fault detection with self-test). See
+[Residual current monitor](../10-hardware/residual-current-monitor.md).
+
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `gpio` | integer | ✅ | Fault-sense input GPIO |
+| `testGpio` | integer | ✅ | Self-test trigger output GPIO |
+
+```yaml
+rcm:
+  gpio: 41
+  testGpio: 26
+```
+
+### `energyMeter`
+
+Integrated energy meter. `current` sensing is required; `voltage` sensing is
+optional — without it the meter uses the configured nominal AC voltage. The
+number of `adcChannels` (1 or 3) determines single- vs. three-phase measurement.
+See [Energy metering](../10-hardware/energy-metering.md).
+
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `current` | object | ✅ | Current sensing |
+| `voltage` | object | — | Voltage sensing |
+
+Each of `current` / `voltage`:
+
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `adcChannels` | integer[1..3] | ✅ | ADC1 channels for L1 (L2, L3). One item = single phase |
+| `scale` | number | ✅ | Multiplier converting the raw measurement to A or V |
+
+```yaml
+energyMeter:
+  current:
+    adcChannels: [4, 5, 6]
+    scale: 0.090909091
+  voltage:
+    adcChannels: [7, 8, 9]
+    scale: 0.47
+```
+
+The active meter mode (`dummy` / `cur` / `cur_vlt`) and three-phase flag are
+chosen at runtime via [`/config/evse`](rest-api.md#getpost-configevse), but are
+constrained by what the hardware here declares.
+
+### `aux`
+
+Auxiliary IO surfaced to [Lua scripting](Lua.md) and reported by
+[`GET /board-config`](rest-api.md#get-board-config). Each entry has a short
+`name` (≤ 8 characters) used to reference it from scripts.
+
+| Sub-key | Type | Max entries | Entry fields |
+| ------- | ---- | :---------: | ------------ |
+| `inputs` | array | 4 | `name`, `gpio` |
+| `outputs` | array | 4 | `name`, `gpio` |
+| `analogInputs` | array | 2 | `name`, `adcChannel` (ADC1) |
+
+```yaml
+aux:
+  inputs:
+    - name: IN1
+      gpio: 11
+  outputs:
+    - name: OUT1
+      gpio: 17
+  analogInputs:
+    - name: IN3
+      adcChannel: 0
+```
+
+!!! note
+    The schema text expresses these caps with `maxLength`, which JSON Schema
+    only applies to strings, so a generic validator will not reject an
+    over-long array. The firmware enforces the real limits (**4 inputs, 4
+    outputs, 2 analog inputs**); extra entries are ignored or rejected at load.
+
+### `serials`
+
+Serial ports, in order. Each port can be plain UART or RS-485, and its
+**function** (log, Modbus, Nextion, AT, script) is selected at runtime via
+[`/config/serial`](rest-api.md#getpost-configserial). Shared by
+[Modbus](Modbus.md) RTU, [Nextion](Nextion.md) and [AT commands](AT-Commands.md).
+
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `type` | string | ✅ | `uart` or `rs485` |
+| `name` | string (≤ 16) | ✅ | Label shown in the UI |
+| `rxdGpio` | integer | ✅ | RX GPIO |
+| `txdGpio` | integer | ✅ | TX GPIO |
+| `rtsGpio` | integer | rs485 only | Flow-control / direction GPIO — **required** when `type: rs485` |
+
+```yaml
+serials:
+  - type: uart
+    name: UART
+    rxdGpio: 12
+    txdGpio: 13
+  - type: rs485
+    name: RS-485
+    rxdGpio: 40
+    txdGpio: 38
+    rtsGpio: 39
+```
+
+!!! note
+    The schema allows up to 3 entries, but the real ceiling is the chip's UART
+    count (`SOC_UART_NUM`): **3 on ESP32 / ESP32-S3, 2 on ESP32-S2**.
+    Additionally, the UART used for the system console is reserved and forced to
+    "no port" at boot, so one slot is effectively consumed by the console on a
+    standard build.
+
+### `onewire`
+
+A 1-Wire bus, currently used for a temperature sensor.
+
+| Field | Type | Required | Notes |
+| ----- | ---- | :------: | ----- |
+| `gpio` | integer | ✅ | 1-Wire data GPIO |
+| `temperatureSensor` | boolean | ✅ | Whether a temperature sensor is present on the bus |
+
+```yaml
+onewire:
+  gpio: 16
+  temperatureSensor: true
+```
+
+## Complete examples
+
+### Minimal single-phase board (ESP32-DevKitC)
+
+LEDs, button, pilot, proximity, a single-phase current+voltage meter, three
+serial ports, a 1-Wire temperature sensor and one OTA channel. No socket lock or
+RCM (fixed-cable style).
+
+```yaml
+# yaml-language-server: $schema=https://github.com/dzurikmiroslav/esp32-evse/raw/refs/heads/master/board-config/board-config-schema-1.json
+
+deviceName: ESP32-DevKitC EVSE
+
+leds:
+  charging:
+    gpio: 19
+  error:
+    gpio: 18
+  wifi:
+    gpio: 17
+
+button:
+  gpio: 0
+
+pilot:
+  gpio: 27
+  adcChannel: 0
+  levels: [2405, 2099, 1792, 1484, 728]
+
+proximity:
+  adcChannel: 3
+  levels: [1650, 820, 430]
+
+acRelay:
+  gpios: [26]
+
+energyMeter:
+  current:
+    adcChannels: [7]
+    scale: 0.090909091
+  voltage:
+    adcChannels: [6]
+    scale: 0.47
+
+serials:
+  - type: uart
+    name: UART via USB
+    rxdGpio: 3
+    txdGpio: 1
+  - type: rs485
+    name: RS485
+    rxdGpio: 32
+    txdGpio: 25
+    rtsGpio: 33
+  - type: uart
+    name: UART
+    rxdGpio: 2
+    txdGpio: 15
+
+onewire:
+  gpio: 16
+  temperatureSensor: true
+
+ota:
+  channels:
+    - name: stable
+      path: https://dzurikmiroslav.github.io/esp32-evse/ota/stable/esp32.json
+```
+
+### Full three-phase board (ESP32-S2-DA)
+
+Adds a socket lock, RCM, three-phase current+voltage metering and auxiliary IO.
+
+```yaml
+# yaml-language-server: $schema=https://github.com/dzurikmiroslav/esp32-evse/raw/refs/heads/master/board-config/board-config-schema-1.json
+
+deviceName: ESP32-S2-DA EVSE
+
+leds:
+  charging:
+    gpio: 36
+  error:
+    gpio: 37
+  wifi:
+    gpio: 35
+
+button:
+  gpio: 0
+
+pilot:
+  gpio: 33
+  adcChannel: 3
+  levels: [2405, 2099, 1792, 1484, 728]
+
+proximity:
+  adcChannel: 2
+  levels: [1650, 820, 430]
+
+acRelay:
+  gpios: [21]
+
+socketLock:
+  gpios: [20, 19]
+  detectionGpio: 34
+  detectionDelay: 1000
+  minBreakTime: 1000
+
+rcm:
+  gpio: 41
+  testGpio: 26
+
+energyMeter:
+  current:
+    adcChannels: [4, 5, 6]
+    scale: 0.090909091
+  voltage:
+    adcChannels: [7, 8, 9]
+    scale: 0.47
+
+aux:
+  inputs:
+    - name: IN1
+      gpio: 11
+    - name: IN2
+      gpio: 2
+  outputs:
+    - name: OUT1
+      gpio: 17
+    - name: OUT2
+      gpio: 16
+    - name: OUT3
+      gpio: 15
+    - name: OUT4
+      gpio: 14
+  analogInputs:
+    - name: IN3
+      adcChannel: 0
+
+serials:
+  - type: uart
+    name: UART
+    rxdGpio: 12
+    txdGpio: 13
+  - type: rs485
+    name: RS-485
+    rxdGpio: 40
+    txdGpio: 38
+    rtsGpio: 39
+
+onewire:
+  gpio: 42
+  temperatureSensor: true
+
+ota:
+  channels:
+    - name: stable
+      path: https://dzurikmiroslav.github.io/esp32-evse/ota/stable/esp32s2.json
+```
+
+## See also
+
+- [Build examples](../10-hardware/build-examples.md) — reference hardware designs
+- [Architecture](architecture.md) — how the config drives the firmware
+- [REST API: `GET /board-config`](rest-api.md#get-board-config) — read the parsed result at runtime
