@@ -16,7 +16,7 @@ ModBUS RTU can be set in serial settings, any serial interface (UART, RS-485) ca
 
 ![Serial settings](/images/web-settings-serial.png "Serial settings")
 
-## Table of ModBUS registers
+## ModBUS registers
 
 | Register Address | Number Of Registers | Access | Description | Representation |
 |---|---|---|---|---|
@@ -24,7 +24,7 @@ ModBUS RTU can be set in serial settings, any serial interface (UART, RS-485) ca
 | 101 | 2 | R | EVSE error bits | uint32 |
 | 103 | 1 | R/W | Charging enabled (enabled=1, disabled=0) | uint16 |
 | 104 | 1 | R/W | Charger available (available=1, available=0) | uint16 |
-| 105 | 1 | R | Pending authorization before start charging, when authorization is required (1 when pending otherwise 0) | uint16 |
+| 105 | 1 | R | Pending authorization before start of charging, when authorization is required (1 when pending otherwise 0) | uint16 |
 | 106 | 1 | R/W | Charging current in A*10 | uint16 |
 | 107 | 2 | R/W | Consumption limit in Wh | uint32 |
 | 109 | 2 | R/W | Charging time limit in s | uint32 |
@@ -63,11 +63,12 @@ ModBUS RTU can be set in serial settings, any serial interface (UART, RS-485) ca
 | 405 | 16 | R | App version | char[16] |
 | 421 | 1 | W | Restart (value 1 must be written) | uint16 |
 
-**Note** Register Address starting at zero, Register Number = Register Address + 1
+!!! note
+    Register addressing starts at zero thus Register Number = Register Address + 1
 
-### Modpoll example
+## Modpoll example
 
-[Modpoll](https://gavinying.github.io/modpoll/) is comandline tool for querying ModBUS device. I like the docker version because it run everywhere and doesn't downloading any other packages to system.
+[Modpoll](https://gavinying.github.io/modpoll/) is a comandline tool for querying ModBUS device. 
 
 Modpoll config `evse-modpoll.csv`:
 ```csv
@@ -114,8 +115,10 @@ docker run --rm \
 	--serial-baud 115200 \
 	--config /app/evse-modpoll.csv
 ```
+!!! note
+    The docker version has the advantage that it can run everywhere and it doesn't download any other packages to your system.
 
-Output should looks like this:
+Output should look like this:
 ```
 Device: esp32-evse
 +--------------------------+------------------+------+
