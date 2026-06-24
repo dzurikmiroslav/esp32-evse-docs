@@ -43,7 +43,7 @@ List all the supported AT commands by the ESP32-EVSE device.
 
 Example:
 
-```
+```at
 AT+CMD
 
 ATE0
@@ -58,7 +58,7 @@ AT+CHIP=?
 AT+HEAP?
 AT+HEAP=?
 
-...
+  ...
 
 OK
 ```
@@ -92,10 +92,8 @@ OK
 +AVAILABLE=1
 ```
 
-> **Note** 
-> Only works with read commands (not write, test or execute).
-> When you subscribe multiple times to the same command, only the period will be updated.
-> AT commands task run in 100ms delay loop, setting any period of lower value has no effect.
+!!! note
+    Only works with read commands (not write, test or execute). When you subscribe multiple times to the same command, only the period will be updated. AT commands task run in a 100ms delay loop, setting any period of lower value has no effect.
 
 ### AT+UNSUB
 
@@ -112,7 +110,7 @@ Unsubscribe periodical reading of a certain command.
 
 Example:
 
-```
+```at
 AT+SUB="+ENABLE",1000
 OK
 AT+SUB="+AVAILABLE",1000
@@ -134,8 +132,8 @@ OK
 AT+UNSUB=""
 ```
 
-> **Note** 
-> Call with empty string remove all command subscriptions.
+!!! note
+    Call with empty string removes all command subscriptions.
 
 ## System commands
 
@@ -176,7 +174,8 @@ Print ESP32 chip model information.
 | `<revision>` | RO     | uint16 | Chip revision number (in format MXX; where M - wafer major version, XX - wafer minor version) |
 
 Example:
-```
+
+```at
 AT+CHIP?
 +CHIP="esp32",2,100
 OK
@@ -197,7 +196,8 @@ Print memory heap status.
 | `<total>` | RO     | uint32 | Total heap size in bytes |
 
 Example:
-```
+
+```at
 AT+HEAP?
 +HEAP=115992,308884
 OK
@@ -217,7 +217,8 @@ Print ESP32-EVSE firmware version.
 | `<version>` | RO     | string | Version, commonly in format major.minor.bugfix |
 
 Example:
-```
+
+```at
 AT+VER?
 +VER="v2.0.0"
 OK
@@ -237,7 +238,8 @@ Print ESP-IDF version that was used to build the firmware.
 | `<version>` | RO     | string | ESP-IDF version |
 
 Example:
-```
+
+```at
 AT+IDFVER?
 +IDFVER="v5.5"
 OK
@@ -258,7 +260,8 @@ Print the datetime of build.
 | `<time>`  | RO     | string | Compile time |
 
 Example:
-```
+
+```at
 AT+BUILDTIME?
 +BUILDTIME="Aug 20 2025","22:13:07"
 OK
@@ -280,7 +283,8 @@ Print the measured temperature values.
 | `<low>`   | RO     | int32 | Lowest temperature in dg.C*100  |
 
 Example:
-```
+
+```at
 AT+TEMP?
 +TEMP=2,2965,2887
 OK
@@ -293,8 +297,9 @@ AT+TEMP?
 +TEMP=0,0,0
 OK
 ```
-> **Note** 
-> In the example above: first reading has 2 temperature sensors; second reading has 1 temperature sensor; last reading has no temperature sensor.
+
+!!! note
+    In the example above: first reading has 2 temperature sensors; second reading has 1 temperature sensor; last reading has no temperature sensor.
 
 ### AT+TZ
 
@@ -311,7 +316,8 @@ Read/write timezone name.
 | `<timezone>` | RW     | string | Timezone name (max length 32) |
 
 Example:
-```
+
+```at
 AT+TZ?
 +TZ="Etc/UTC"
 OK
@@ -334,7 +340,8 @@ Read Posix timezone string.
 | `<timezone_rule>` | RO     | string | Posix timezone string (max length 32) |
 
 Example:
-```
+
+```at
 AT+TZRULE?
 +TZRULE="CET-1CEST,M3.5.0,M10.5.0/3"
 OK
@@ -355,7 +362,8 @@ Read/write epoch Unix timestamp (write to set the system time manually).
 | `<time>`  | RW     | uint64 | Epoch time in s |
 
 Example:
-```
+
+```at
 AT+TIME?
 +TIME=1756129834
 OK
@@ -377,7 +385,8 @@ Print ESP32-EVSE internal state according to J1772 standard.
 | `<state>` | RO     | uint8 | EVSE state number (A=0, B1=1, B2=2, C1=3, C2=4, D1=5, D2=6, E=7, F=8) |
 
 Example:
-```
+
+```at
 AT+STATE?
 +STATE=4
 OK
@@ -397,7 +406,8 @@ Print ESP32-EVSE [error bits](https://github.com/dzurikmiroslav/esp32-evse/blob/
 | `<error>` | RO     | uint32 | EVSE error bit |
 
 Example:
-```
+
+```at
 AT+ERROR?
 +ERROR=0
 OK
@@ -418,7 +428,8 @@ Read/write ESP32-EVSE charging enabled setting.
 | `<enable>` | RW     | uint8 | Is enabled charger (0 or 1) |
 
 Example:
-```
+
+```at
 AT+ENABLE?
 +ENABLE=0
 OK
@@ -442,14 +453,15 @@ Read/write ESP32-EVSE charging available setting (F state).
 | `<available>` | RW     | uint8 | Is available charger (0 or 1) |
 
 Example:
-```
+
+```at
 AT+AVAILABLE?
 +AVAILABLE=0
 OK
 ```
 
-> **Note** 
-> When ESP32-EVSE is set available=0 it not mean that state always will be F. Error can override the state to E.
+!!! note
+    When ESP32-EVSE is set to be `available=0` it doesn't mean that state will always be F. Error can override the state to E.
 
 ### AT+REQAUTH
 
@@ -466,7 +478,8 @@ Read/write ESP32-EVSE require authorization option before starting to charge.
 | `<require_auth>` | RW     | uint8 | Is required authorization (0 or 1) |
 
 Example:
-```
+
+```at
 AT+REQAUTH?
 +REQAUTH=0
 OK
@@ -487,7 +500,8 @@ Print the state of the ESP32-EVSE pending authorization bit.
 | `<pending_auth>` | RO     | uint8 | Is pending authorization (0 or 1) |
 
 Example:
-```
+
+```at
 AT+PENDAUTH?
 +PENDAUTH=1
 OK
@@ -503,7 +517,8 @@ This command is to confirm the pending authorization, and allow the system to ch
 | `AT+AUTH` | ---          | `OK`        |
 
 Example:
-```
+
+```at
 AT+AUTH
 OK
 ```
@@ -523,7 +538,8 @@ Read/write the actual charging current value. Value must be in range 6A - MAXCHC
 | `<current>` | RW     | uint16 | Charging current in A*10 |
 
 Example:
-```
+
+```at
 AT+CHCUR?
 +CHCUR=60
 OK
@@ -531,8 +547,9 @@ OK
 AT+CHCUR=20
 ERROR
 ```
-> **Note** 
-> The example above returns error because value 2A is out of range (6A is lower limit)
+
+!!! note
+    The example above returns error because value 2A is out of range (6A is lower limit)
 
 ### AT+DEFCHCUR
 
@@ -549,7 +566,8 @@ Read/write default charging current. Value must be in range 6A - MAXCHCUR.
 | `<current>` | RW     | uint16 | Charging current in A*10 |
 
 Example:
-```
+
+```at
 AT+DEFCHCUR?
 +DEFCHCUR=320
 OK
@@ -570,14 +588,15 @@ Read/write max charging current. Value must be in range 6A - 63A.
 | `<current>` | RW     | uint8 | Charging current in A |
 
 Example:
-```
+
+```at
 AT+MAXCHCUR?
 +MAXCHCUR=63
 OK
 ```
 
-> **Note** 
-> Set this to match the electrical limits of your installation!
+!!! note
+    Set this to match the electrical limits of your installation!
 
 ### AT+CONSUMLIM
 
@@ -594,13 +613,15 @@ Read/write energy consumption limit (stop charging session if the limit has been
 | `<consumption>` | RW     | uint32 | Consumption in Wh |
 
 Example:
-```
+
+```at
 AT+CONSUMLIM?
 +CONSUMLIM=0
 OK
 ```
-> **Note** 
-> Value 0 mean no limit
+
+!!! note
+    Value 0 means no limit
 
 ### AT+DEFCONSUMLIM
 
@@ -617,16 +638,18 @@ Read/write the default consumption limit.
 | `<consumption>` | RW     | uint32 | Consumption in Wh |
 
 Example:
-```
+
+```at
 AT+DEFCONSUMLIM?
 +DEFCONSUMLIM=25000
 OK
 ```
-> **Note** 
-> This example sets a 25kWh amount of energy consumption limit
 
-> **Note** 
-> Value 0 mean no limit
+!!! note
+    This example sets a 25 kWh amount of energy consumption limit
+
+!!! note
+    Value 0 means no limit
 
 ### AT+CHTIMELIM
 
@@ -643,16 +666,17 @@ Read/write charging time limit (stop charging session if the limit has been hit)
 | `<time>`  | RW     | uint32 | Time in s   |
 
 Example:
-```
+
+```at
 AT+CHTIMELIM=7200
 OK
 ```
 
-> **Note** 
-> This example sets a 2h charging time limit
+!!! note
+    This example sets a 2h charging time limit
 
-> **Note** 
-> Value 0 mean no limit
+!!! note
+    Value 0 means no limit
 
 ### AT+DEFCHTIMELIM
 
@@ -669,14 +693,15 @@ Read/write the default charging time limit.
 | `<time>`  | RW     | uint32 | Time in s   |
 
 Example:
-```
+
+```at
 AT+DEFCHTIMELIM?
 +DEFCHTIMELIM=0
 OK
 ```
 
-> **Note** 
-> Value 0 mean no limit
+!!! note
+    Value 0 means no limit
 
 ### AT+UNDERPOWERLIM
 
@@ -693,14 +718,15 @@ Read/write under power charging limit (stop charging session when power falls un
 | `<power>` | RW     | uint16 | Power in W  |
 
 Example:
-```
+
+```at
 AT+UNDERPOWERLIM?
 +UNDERPOWERLIM=0
 OK
 ```
 
-> **Note** 
-> Value 0 mean no limit
+!!! note
+    Value 0 means no limit
 
 ### AT+DEFUNDERPOWERLIM
 
@@ -717,14 +743,15 @@ Read/write the default under power charging limit.
 | `<power>` | RW     | uint16 | Power in W  |
 
 Example:
-```
+
+```at
 AT+DEFUNDERPOWERLIM?
 +DEFUNDERPOWERLIM=0
 OK
 ```
 
-> **Note** 
-> Value 0 mean no limit
+!!! note
+    Value 0 means no limit
 
 ### AT+LIMREACH
 
@@ -740,7 +767,8 @@ Print the state of the charging limit bit (any limit was reached).
 | `<reached>` | R      | uint8 | Is charging limit reached (0 or 1) |
 
 Example:
-```
+
+```at
 AT+LIMREACH?
 +LIMREACH=0
 OK
@@ -762,14 +790,15 @@ This enables detection of provided cable max current, and socket lock functional
 | `<socket_outlet>` | RW     | uint8 | Socket outlet (0 or 1) |
 
 Example:
-```
+
+```at
 AT+SOCKETOUTLET?
 +SOCKETOUTLET=0
 OK
 ```
 
-> **Note** 
-> Value 0 mean no limit
+!!! note
+    Value 0 means no limit
 
 ## Energy meter commands
 
@@ -790,7 +819,8 @@ Value CUR_VLT require `EMETER=2,x`.
 | `<mode>`  | RW     | uint8 | Mode number (DUMMY=0, CUR=1, CUR_VLT=2) |
 
 Example:
-```
+
+```at
 AT+EMETERMODE?
 +EMETERMODE=1
 OK
@@ -799,8 +829,8 @@ AT+EMETERMODE=5
 ERROR
 ```
 
-> **Note** 
-> In the example above, value 5 fails because it is out of range
+!!! note
+    In the example above, value 5 fails because it is out of range
 
 ### AT+EMETERACVOLTAGE
 
@@ -817,7 +847,8 @@ Read/write energy meter voltage setting, used for calculation in DUMMY and CUR m
 | `<voltage>` | RW     | uint16 | Voltage in V |
 
 Example:
-```
+
+```at
 AT+EMETERACVOLTAGE?
 +EMETERACVOLTAGE=253
 OK
@@ -826,8 +857,8 @@ AT+EMETERACVOLTAGE=305
 ERROR
 ```
 
-> **Note** 
-> In the example above, setting value 305 fails because it is out of range
+!!! note
+    In the example above, setting value 305 fails because it is out of range
 
 ### AT+EMETERTHREEPHASE
 
@@ -844,7 +875,8 @@ Read/write energy meter three phase mode setting.
 | `<three_phases>` | RW     | uint8 | Three phases (0 or 1) |
 
 Example:
-```
+
+```at
 AT+EMETERTHREEPHASE?
 +EMETERTHREEPHASE=1
 OK
@@ -864,7 +896,8 @@ Print the value of the actual charging power.
 | `<power>` | RO     | uint16 | Power in W  |
 
 Example:
-```
+
+```at
 AT+EMETERPOWER?
 +EMETERPOWER=11085
 OK
@@ -884,7 +917,8 @@ Print the duration of the current charging session.
 | `<time>`  | RO     | uint32 | Time in s   |
 
 Example:
-```
+
+```at
 AT+EMETERSESTIME?
 +EMETERSESTIME=3769
 OK
@@ -904,7 +938,8 @@ Print the amount of time spent with charging.
 | `<time>`  | RO     | uint32 | Time in s   |
 
 Example:
-```
+
+```at
 AT+EMETERCHTIME?
 +EMETERCHTIME=3702
 OK
@@ -924,7 +959,8 @@ Print the energy consumption of the actual session.
 | `<consumption>` | RO     | uint32 | Consumption in Wh |
 
 Example:
-```
+
+```at
 AT+EMETERCONSUM?
 +EMETERCONSUM=35547
 OK
@@ -945,7 +981,8 @@ Read/reset the total energy delivered with this ESP32-EVSE device.
 | `<consumption>` | RW     | uint64 | Consumption in Wh |
 
 Example:
-```
+
+```at
 AT+EMETERTOTCONSUM?
 +EMETERTOTCONSUM=915517547
 OK
@@ -956,8 +993,9 @@ OK
 AT+EMETERCONSUM=5
 ERROR
 ```
-> **Note** 
-> To reset total consumption use value 0, other values will throw error.
+
+!!! note
+    To reset total consumption use value 0, other values will throw an error.
 
 
 ### AT+EMETERVOLTAGE
@@ -976,7 +1014,8 @@ Print the measured or preset voltage.
 | `<l3_vlt>` | RO     | uint32 | L3 voltage in mV |
 
 Example:
-```
+
+```at
 AT+EMETERVOLTAGE?
 +EMETERVOLTAGE=255951,254753,255852
 OK
@@ -986,8 +1025,8 @@ AT+EMETERVOLTAGE?
 OK
 ```
 
-> **Note** 
-> When energy meter is single phase, L2 and L3 voltage are 0.
+!!! note
+    When energy meter is single phase, L2 and L3 voltage are 0.
 
 ### AT+EMETERCURRENT
 
@@ -1005,7 +1044,8 @@ Print the measured or preset current.
 | `<l3_cur>` | RO     | uint32 | L3 current in mA |
 
 Example:
-```
+
+```at
 AT+EMETERCURRENT?
 +EMETERCURRENT=10951,10753,105852
 OK
@@ -1015,14 +1055,14 @@ AT+EMETERCURRENT?
 OK
 ```
 
-> **Note** 
-> When energy meter is single phase, L2 and L3 current are 0.
+!!! note
+    When energy meter is single phase, L2 and L3 current are 0.
 
 ## Network commands
 
 ### AT+WIFISTACFG
 
-This command is used to read/write WiFi STA configuration.
+This command is used to read/write WiFi STA (client) configuration.
 
 | Command                                     | Return Value                              | Return Code     |
 | ------------------------------------------- | ----------------------------------------- | --------------- |
@@ -1037,7 +1077,8 @@ This command is used to read/write WiFi STA configuration.
 | `<password>` | WO     | string | Password (max length 32)     |
 
 Example:
-```
+
+```at
 AT+WIFISTACFG?
 +WIFISTACFG=1,"MirkoTik-E12345",""
 OK
@@ -1057,8 +1098,8 @@ AT+WIFISTACFG?
 OK
 ```
 
-> **Note** 
-> Calling WIFISTACFG=(0|1) only disable/enable STA, SSID and password will be not modified.
+!!! note
+    Calling `WIFISTACFG=(0|1)` only disables/enables the WiFi client, SSID and password will be not modified.
 
 ### AT+WIFIAPCFG
 
@@ -1076,7 +1117,8 @@ Read/write WiFi access point mode configuration.
 | `<ssid>`    | RO     | string | SSID (max length 32)        |
 
 Example:
-```
+
+```at
 AT+WIFIAPCFG?
 +WIFIAPCFG=0,"ESP32-EVSE-03fc60"
 OK
@@ -1089,8 +1131,8 @@ AT+WIFISTACFG?
 OK
 ```
 
-> **Note** 
-> After enabling access point mode, if there's no client connected within 1 minute, access point mode will be disabled.
+!!! note
+    After enabling access point mode, if there's no client connected within 1 minute, access point mode will be disabled.
 
 ### AT+WIFISTACONN
 
@@ -1107,7 +1149,8 @@ Print WiFi client mode connection state.
 | `<rssi>`       | RO     | int8  | RSSI in dB              |
 
 Example:
-```
+
+```at
 AT+WIFISTACONN?
 +WIFISTACONN=1,-61
 OK
@@ -1127,7 +1170,8 @@ Print WiFi access point mode connection state.
 | `<connection>` | RO     | uint8 | Has connection (0 or 1) |
 
 Example:
-```
+
+```at
 AT+WIFIAPCONN?
 +WIFIAPCONN=0
 OK
@@ -1152,7 +1196,8 @@ This command is used to read/write WiFi STA static IP configuration.
 | `<dns>`     | RW     | string | DNS server (max length 32)         |
 
 Example:
-```
+
+```at
 OK
 AT+WIFISTASTATIC?
 +WIFISTASTATIC=1,"192.168.88.100","192.168.88.1","255.255.255.0","192.168.88.1"
@@ -1169,8 +1214,8 @@ AT+WIFISTASTATIC=1,"192.168.88.101"
 OK
 ```
 
-> **Note** 
-> Calling WIFISTASTATIC=(0|1) only disable/enable static IP, other parameters will be not modified. 
+!!! note
+    Calling `WIFISTASTATIC=(0|1)` only disables/enables the static IP, other parameters will be not modified. 
 
 ### AT+WIFISTAIP
 
@@ -1186,7 +1231,8 @@ Print WiFi client IP address.
 | `<ip>`    | RO     | string | IP address  |
 
 Example:
-```
+
+```at
 AT+WIFISTAIP?
 +WIFISTAIP="192.168.88.50"
 OK
@@ -1206,7 +1252,8 @@ Print WiFi client MAC address.
 | `<mac>`   | RO     | string | IP address  |
 
 Example:
-```
+
+```at
 AT+WIFISTAMAC?
 +WIFISTAMAC="30:c6:f7:x3:ab:5c"
 OK
@@ -1226,7 +1273,8 @@ Print WiFi access point IP address.
 | `<ip>`    | RO     | string | IP address  |
 
 Example:
-```
+
+```at
 AT+WIFIAPIP?
 +WIFIAPIP="192.168.4.1"
 OK
@@ -1246,7 +1294,8 @@ Print WiFi access point MAC address.
 | `<mac>`   | RO     | string | IP address  |
 
 Example:
-```
+
+```at
 AT+WIFIAPMAC?
 +WIFIAPMAC="30:c6:f7:x3:ab:5d"
 OK
@@ -1267,7 +1316,8 @@ Scan WiFi for surrounding acc esspoints.
 | `<rssi>`  | RO     | int8   | AP RSSI in dB                      |
 
 Example:
-```
+
+```at
 AT+WIFIAPSCAN
 +WIFIAPSCAN="MirkoTik-E12345",1,-51
 +WIFIAPSCAN="Pretty fly for a WiFi",1,-69
@@ -1291,7 +1341,8 @@ Read/write mDNS hostname.
 | `<hostname>` | RO     | string | Hostname (max length 32) |
 
 Example:
-```
+
+```at
 AT+HOSTNAME?
 +HOSTNAME="evse"
 OK
@@ -1315,7 +1366,8 @@ Read/write mDNS instance name.
 | `<instance_name>` | RO     | string | Instance name (max length 32) |
 
 Example:
-```
+
+```at
 AT+INSTNAME?
 +INSTNAME="evse"
 OK
@@ -1346,14 +1398,15 @@ Read/write serial configuration.
 | `<parity>`    | RW     | uint8  | Serial parity (enum values uart_parity_t)                        |
 
 Example:
-```
+
+```at
 AT+SERIAL0?
 +SERIAL0=0,115200,3,1,0
 OK
 ```
 
-> **Note** 
-> Remember which serial port you are using for AT commands. After changing the currently used serial port, you will not be able to revert the changes from here.
+!!! note
+    Remember which serial port you are using for AT commands. After changing the currently used serial port, you will not be able to revert the changes from here.
 
 ## Board config
 
@@ -1373,7 +1426,8 @@ Print device name.
 | `<device_name>` | RO     | string | Device name (max length 32) |
 
 Example:
-```
+
+```at
 AT+DEVNAME?
 +DEVNAME="ESP32-DevKitC EVSE"
 OK
@@ -1393,7 +1447,8 @@ Print the definition of socket lock.
 | `<socket_lock>` | RO     | uint8 | Has defined socket lock (0 or 1) |
 
 Example:
-```
+
+```at
 AT+SOCKETLOCK?
 +SOCKETLOCK=1
 OK
@@ -1413,7 +1468,8 @@ Print socket lock minimum break time.
 | `<min_break_time>` | RO     | uint16 | Socket lock min break time in ms |
 
 Example:
-```
+
+```at
 AT+SOCKETLOCKMINBREAKTIME?
 +SOCKETLOCKMINBREAKTIME=1
 OK
@@ -1433,7 +1489,8 @@ Print the definition of a proximity pilot.
 | `<proximity>` | RO     | uint8 | Has defined proximity pilot (0 or 1) |
 
 Example:
-```
+
+```at
 AT+PROXIMITY?
 +PROXIMITY=1
 OK
@@ -1453,15 +1510,15 @@ Print the definition of a temperature sensor bus.
 | `<temperature_sensor>` | RO     | uint8 | Has defined temperature sensor bus (0 or 1) |
 
 Example:
-```
+
+```at
 AT+TEMPSENSOR?
 +TEMPSENSOR=1
 OK
 ```
 
-> **Note** 
-> When you have defined temperature sensor bus, it doesn't automaticaly mean you have a connected temperature sensor.
-> Command AT+TEMP returns the count of the active temperature sensors.
+!!! note
+    When you have defined temperature sensor bus, it doesn't automaticaly mean you have a connected temperature sensor. Command `AT+TEMP` returns the count of the active temperature sensors.
 
 ### AT+EMETER
 
@@ -1478,7 +1535,8 @@ Print the energy meter settings.
 | `<three_phases>` | RO     | uint8 | Three phases energy meter (0 or 1)                          |
 
 Example:
-```
+
+```at
 AT+TEMPSENSOR?
 +EMETER=2,0
 OK
@@ -1499,7 +1557,8 @@ Print the serial definitions.
 | `<name>`  | RO     | string | Name of serial (max length 32)   |
 
 Example:
-```
+
+```at
 AT+SERIALS?
 +SERIALS=1,"UART via USB"
 +SERIALS=2,"RS485"
@@ -1521,7 +1580,8 @@ Print AUX input definitions.
 | `<name>`  | RO     | string | Name of input (max length 8) |
 
 Example:
-```
+
+```at
 AT+AUXINPUTS?
 +AUXINPUTS="IN1"
 +AUXINPUTS="IN2"
@@ -1542,7 +1602,8 @@ Print AUX output definitions.
 | `<name>`  | RO     | string | Name of output (max length 8) |
 
 Example:
-```
+
+```at
 AT+AUXOUTPUTS?
 +AUXOUTPUTS="OUT1"
 +AUXOUTPUTS="OUT2"
@@ -1565,7 +1626,8 @@ Print AUX analog input definitions.
 | `<name>`  | RO     | string | Name of analog input (max length 8) |
 
 Example:
-```
+
+```at
 AT+AUXANALOGINPUTS?
 +AUXANALOGINPUTS="IN3"
 OK
