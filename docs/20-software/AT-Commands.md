@@ -2,7 +2,7 @@
 title: AT Commands reference
 ---
 
-AT commands are useful to communicate with the device from third party peripherals. A good use case is implememting a [HMI using ESPHome and LVGL]https://dzurikmiroslav.github.io/esp32-evse-docs/10-hardware/hmi-examples/#esphome-with-lvgl) which not only offers a nice touch screen interface, but also integrates natively the EVSE in Homa Assistant.
+AT commands are useful to communicate with the device from third party peripherals. A good use case is implememting a [HMI using ESPHome and LVGL](https://dzurikmiroslav.github.io/esp32-evse-docs/10-hardware/hmi-examples/#esphome-with-lvgl) which not only offers a nice touch screen interface, but also integrates natively the EVSE in Homa Assistant.
 
 ## Basic commands
 
