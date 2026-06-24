@@ -2,17 +2,16 @@
 title: Nextion display reference
 ---
 
-The firmware provides a Nextion API that is universal (it doesn't strictly define pages or components placement on pages).
+The firmware provides a Nextion API that is universal (it doesn't strictly define pages or components placement on pages). This allows free design of HMIs.
 
-Nextion API can be set in serial settings, any serial interface can be operating in Nextion API mode. 
+Nextion API can be set in serial settings, any serial interface can be used for this. 
 
 !!! note
-    Only one interface can work in Nextion API mode!
+    Only one interface can work in Nextion API mode.
 
-Commands can be sent from Nextion Display to controller, and must be terminated with `0xFF 0xFF 0xFF`. In Nextion editor set encoding to UTF-8.
+Commands sent from Nextion Display to controller must be terminated with `0xFF 0xFF 0xFF`. In Nextion editor encoding needs to be set to UTF-8.
 
-Before connecting Nextion display to controller check display datasheet for Output High Voltage.
-**Intelligent series** has 5V TX, but ESP32 supports only 3,3V (5V tolerant)! If the board design does not contain a logic level converter, use external voltatage divider.
+Before connecting a Nextion display to the ESP32, check display datasheet for Output High Voltage. **Intelligent series** has 5V TX, but ESP32 supports only 3,3V (5V tolerant)! If the board design does not contain a logic level converter, use external voltatage divider.
 
 ## Commands
 
