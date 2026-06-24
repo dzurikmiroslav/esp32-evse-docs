@@ -13,13 +13,6 @@ write a config file. See [Architecture](architecture.md) for the bigger picture.
 This page documents the current schema, `board-config-schema-1.json`
 ([in the repo](https://github.com/dzurikmiroslav/esp32-evse/tree/master/board-config)).
 
-!!! note
-    The auto-generated reference that previously lived here described the older
-    *flat* schema (top-level keys like `ledChargingGpio`, `buttonGpio`). The
-    current schema is **nested** (`leds.charging.gpio`, `button.gpio`, …). The
-    structure and field names below match the nested schema actually parsed by
-    the firmware.
-
 ## Where the file lives
 
 `board.yaml` is stored on a dedicated **LittleFS** partition labelled `usr`
