@@ -19,7 +19,7 @@ J1772 EVSE firmware for ESP32 based devices.
 
 An **EVSE** (Electric Vehicle Supply Equipment) is the equipment between the AC mains and an electric vehicle &ndash; what most people call the "charger". For AC charging the conversion to DC happens in the vehicle's onboard charger; the EVSE's job is to **supervise and control the supply safely**: confirm a vehicle is properly connected, tell it how much current it may draw, switch the mains on and off through a contactor, and shut down on a fault.
 
-This project is firmware that turns an **ESP32-based board into a fully featured AC EVSE** following the **SAE J1772 / IEC 61851-1** standard. On top of the core charging control it adds the features expected of a modern wallbox &ndash; energy metering, charging limits, access control, a responsive web interface, over-the-air updates, and a range of integration interfaces (REST, [Modbus](20-software/Modbus.md), [Lua scripting](20-software/Lua.md), [Nextion HMI](20-software/Nextion.md), [AT commands](20-software/AT-Commands.md)). See the full list under [Key features](#key-features).
+This project is firmware that turns an **ESP32-based board** into a **fully featured AC EVSE** following the **SAE J1772 / IEC 61851-1** standard. On top of the core charging control it adds the features expected of a modern wallbox &ndash; energy metering, charging limits, access control, a responsive web interface, over-the-air updates, and a range of integration interfaces ([Modbus](20-software/Modbus.md), [Lua scripting](20-software/Lua.md), [Nextion HMI](20-software/Nextion.md), [AT commands](20-software/AT-Commands.md), [REST](20-software/rest-api.md)). See the full list under [Key features](#key-features).
 
 ## How it works
 
@@ -36,14 +36,13 @@ The firmware is written in ESP-IDF and is **not tied to any particular board**: 
  - Hardware abstraction for device design
  - Responsive web-interface
  - OTA update
- - Integrated energy meter
+ - [Integrated energy meter](10-hardware/energy-metering.md)
  - [Modbus](20-software/Modbus.md) (RTU and TCP)
  - [LUA scripting](20-software/Lua.md)
  - [Nextion HMI](20-software/Nextion.md)
  - [AT commands](20-software/AT-Commands.md) (third party HMI or systems integration)
- - REST API
- - WebDAV
- - Scheduler
+ - [REST API / WebDAV](20-software/rest-api.md)
+ - [Scheduler](20-software/scheduler.md)
 
 ### Web installer
 
