@@ -31,7 +31,7 @@ Echo back to the client the AT command input (see the entered commands on a seri
 
 | Parameter | Access | Type  | Description            |
 | --------- | ------ | ----- | ---------------------- |
-| `<echo>`  | WO     | uint8 | Echo commands (0 or 1) |
+| `<echo>`  | WO     | uint8 | Echo commands (`0` or `1`) |
 
 ### AT+CMD
 
@@ -427,7 +427,7 @@ Read/write ESP32-EVSE charging enabled setting.
 
 | Parameter  | Access | Type  | Description                 |
 | ---------- | ------ | ----- | --------------------------- |
-| `<enable>` | RW     | uint8 | Charger enabled  (0 or 1)   |
+| `<enable>` | RW     | uint8 | Charger enabled (`0` or `1`)    |
 
 Example:
 
@@ -442,7 +442,7 @@ OK
 
 ### AT+AVAILABLE
 
-Read/write ESP32-EVSE charging available setting (F state).
+Read/write ESP32-EVSE charging available setting (`F` state).
 
 | Command                    | Return Value             | Return Code |
 | -------------------------- | ------------------------ | ----------- |
@@ -452,7 +452,7 @@ Read/write ESP32-EVSE charging available setting (F state).
 
 | Parameter     | Access | Type  | Description                   |
 | ------------- | ------ | ----- | ----------------------------- |
-| `<available>` | RW     | uint8 | Charger available (0 or 1)    |
+| `<available>` | RW     | uint8 | Charger available (`0` or `1`)    |
 
 Example:
 
@@ -477,7 +477,7 @@ Read/write ESP32-EVSE require authorization option before starting to charge.
 
 | Parameter        | Access | Type  | Description                        |
 | ---------------- | ------ | ----- | ---------------------------------- |
-| `<require_auth>` | RW     | uint8 | Authorization required (0 or 1)    |
+| `<require_auth>` | RW     | uint8 | Authorization required (`0` or `1`)    |
 
 Example:
 
@@ -499,7 +499,7 @@ Print the state of the ESP32-EVSE pending authorization bit.
 
 | Parameter        | Access | Type  | Description                       |
 | ---------------- | ------ | ----- | --------------------------------- |
-| `<pending_auth>` | RO     | uint8 | Authorization pending (0 or 1)    |
+| `<pending_auth>` | RO     | uint8 | Authorization pending (`0` or `1`)    |
 
 Example:
 
@@ -766,7 +766,7 @@ Print the state of the charging limit bit (any limit was reached).
 
 | Parameter   | Access | Type  | Description                        |
 | ----------- | ------ | ----- | ---------------------------------- |
-| `<reached>` | R      | uint8 | Is charging limit reached (0 or 1) |
+| `<reached>` | R      | uint8 | Is charging limit reached (`0` or `1`) |
 
 Example:
 
@@ -789,7 +789,7 @@ This enables detection of provided cable max current, and socket lock functional
 
 | Parameter         | Access | Type  | Description            |
 | ----------------- | ------ | ----- | ---------------------- |
-| `<socket_outlet>` | RW     | uint8 | Socket outlet (0 or 1) |
+| `<socket_outlet>` | RW     | uint8 | Socket outlet (`0` or `1`) |
 
 Example:
 
@@ -874,7 +874,7 @@ Read/write energy meter three phase mode setting.
 
 | Parameter        | Access | Type  | Description           |
 | ---------------- | ------ | ----- | --------------------- |
-| `<three_phases>` | RW     | uint8 | Three phases (0 or 1) |
+| `<three_phases>` | RW     | uint8 | Three phases (`0` or `1`) |
 
 Example:
 
@@ -1074,7 +1074,7 @@ This command is used to read/write WiFi STA (client) configuration.
 
 | Parameter    | Access | Type   | Description                  |
 | ------------ | ------ | ------ | ---------------------------- |
-| `<enabled>`  | RW     | uint8  | Enabled/disable STA (0 or 1) |
+| `<enabled>`  | RW     | uint8  | Enabled/disable STA (`0` or `1`) |
 | `<ssid>`     | RW     | string | SSID (max length 32)         |
 | `<password>` | WO     | string | Password (max length 32)     |
 
@@ -1115,7 +1115,7 @@ Read/write WiFi access point mode configuration.
 
 | Parameter   | Access | Type   | Description                 |
 | ----------- | ------ | ------ | --------------------------- |
-| `<enabled>` | RW     | uint8  | Enabled/disable AP (0 or 1) |
+| `<enabled>` | RW     | uint8  | Enabled/disable AP (`0` or `1`) |
 | `<ssid>`    | RO     | string | SSID (max length 32)        |
 
 Example:
@@ -1147,7 +1147,7 @@ Print WiFi client mode connection state.
 
 | Parameter      | Access | Type  | Description             |
 | -------------- | ------ | ----- | ----------------------- |
-| `<connection>` | RO     | uint8 | Has connection (0 or 1) |
+| `<connection>` | RO     | uint8 | Has connection (`0` or `1`) |
 | `<rssi>`       | RO     | int8  | RSSI in dB              |
 
 Example:
@@ -1169,7 +1169,7 @@ Print WiFi access point mode connection state.
 
 | Parameter      | Access | Type  | Description             |
 | -------------- | ------ | ----- | ----------------------- |
-| `<connection>` | RO     | uint8 | Has connection (0 or 1) |
+| `<connection>` | RO     | uint8 | Has connection (`0` or `1`) |
 
 Example:
 
@@ -1191,7 +1191,7 @@ This command is used to read/write WiFi STA static IP configuration.
 
 | Parameter   | Access | Type   | Description                        |
 | ----------- | ------ | ------ | ---------------------------------- |
-| `<enabled>` | RW     | uint8  | Enabled/disable static IP (0 or 1) |
+| `<enabled>` | RW     | uint8  | Enabled/disable static IP (`0` or `1`) |
 | `<ip>`      | RW     | string | IP address (max length 32)         |
 | `<gateway>` | RW     | string | Gateway (max length 32)            |
 | `<netmask>` | RW     | string | Netmask (max length 32)            |
@@ -1314,7 +1314,7 @@ Scan WiFi for surrounding acc esspoints.
 | Parameter | Access | Type   | Description                        |
 | --------- | ------ | ------ | ---------------------------------- |
 | `<ssid>`  | RO     | string | AP SSID (max length 32)            |
-| `<auth>`  | RO     | uint8  | AP require authentication (0 or 1) |
+| `<auth>`  | RO     | uint8  | AP require authentication (`0` or `1`) |
 | `<rssi>`  | RO     | int8   | AP RSSI in dB                      |
 
 Example:
@@ -1446,7 +1446,7 @@ Print the definition of socket lock.
 
 | Parameter       | Access | Type  | Description                      |
 | --------------- | ------ | ----- | -------------------------------- |
-| `<socket_lock>` | RO     | uint8 | Has defined socket lock (0 or 1) |
+| `<socket_lock>` | RO     | uint8 | Has defined socket lock (`0` or `1`) |
 
 Example:
 
@@ -1488,7 +1488,7 @@ Print the definition of a proximity pilot.
 
 | Parameter     | Access | Type  | Description                          |
 | ------------- | ------ | ----- | ------------------------------------ |
-| `<proximity>` | RO     | uint8 | Has defined proximity pilot (0 or 1) |
+| `<proximity>` | RO     | uint8 | Has defined proximity pilot (`0` or `1`) |
 
 Example:
 
@@ -1509,7 +1509,7 @@ Print the definition of a temperature sensor bus.
 
 | Parameter              | Access | Type  | Description                                 |
 | ---------------------- | ------ | ----- | ------------------------------------------- |
-| `<temperature_sensor>` | RO     | uint8 | Has defined temperature sensor bus (0 or 1) |
+| `<temperature_sensor>` | RO     | uint8 | Has defined temperature sensor bus (`0` or `1`) |
 
 Example:
 
@@ -1534,7 +1534,7 @@ Print the energy meter settings.
 | Parameter        | Access | Type  | Description                                                 |
 | ---------------- | ------ | ----- | ----------------------------------------------------------- |
 | `<type>`         | RO     | uint8 | Type of energy meter (NONE=0, CURRENT=1, CURRENT_VOLTAGE=2) |
-| `<three_phases>` | RO     | uint8 | Three phases energy meter (0 or 1)                          |
+| `<three_phases>` | RO     | uint8 | Three phases energy meter (`0` or `1`)                          |
 
 Example:
 
