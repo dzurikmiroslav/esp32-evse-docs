@@ -32,7 +32,7 @@ Currently registered components are displayed in web interface, also with parame
 | params      | `table\|nil`             | Parameters definition                                                   |
 | start       | `(table\|nil):coroutine` | Function where is created coroutine, argument is parameters value table |
 
-### Component parameter table definition
+### Parameter definition
 
 | Key     | Signature                      | Description                                                         |
 | ------- | ------------------------------ | ------------------------------------------------------------------- |
@@ -70,7 +70,9 @@ This will looks like in web interface:
 
 ![Script settings](/images/web-settings-script.png "Script settings")
 
-## Evse module
+## Modules
+
+### EVSE
 
 Root level module, for controlling charging controller.
 
@@ -131,7 +133,7 @@ Root level module, for controlling charging controller.
 | evse.getdefaultunderpowerlimit   | `():number`               | Get default session under power limit in W                     |
 | evse.getlimitreached             | `():boolean`              | Get charging limit reached                                     |
 
-## Energymeter module
+### Energy meter
 
 This module providing access to energy meter. Not globally loaded, need require this module.
 
@@ -158,7 +160,7 @@ This module providing access to energy meter. Not globally loaded, need require 
 | energymeter.getvoltage            | `():number,number,number` | Get voltages in V                                                           |
 | energymeter.getcurrent            | `():number,number,number` | Get current in A                                                            |
 
-## Boardconfig module
+### Board config
 
 This module providing values from `board.cfg`. Not globally loaded, need require this module.
 
@@ -193,7 +195,7 @@ local boardconfig = require("boardconfig")
 print("device name:", boardconfig.devicename)
 ```
 
-## Aux module
+### AUX
 
 This module providing access to AUX. Not globally loaded, need require this module.
 
@@ -203,7 +205,7 @@ This module providing access to AUX. Not globally loaded, need require this modu
 | aux.read       | `(string):boolean` | Get digital input value  |
 | aux.analogread | `(string):number`  | Get analog input value   |
 
-## Mqtt module
+### MQTT
 
 This module providing access to MQTT broker. Not globally loaded, need require this module.
 
@@ -229,7 +231,7 @@ if client:connect() then
 end
 ```
 
-## Json module
+### JSON
 
 This module providing JSON serialization & deserialization. Not globally loaded, need require this module.
 
@@ -250,7 +252,7 @@ local value = {
 print(json.encode(value, true))
 ```
 
-## Serial module
+### Serial
 
 This module providing serial port communication. Not globally loaded, need require this module.
 
@@ -273,19 +275,23 @@ print(rcv)
 port:write("AT?")
 ```
 
-## Complex example
+## Examples
 
-Here is an example with two components, first one handles an emergency stop button, second one implements an integration to ThingsBoard cloud.
-For better code readability, each component is in its own script file, the main script `init.lua` imports them:
+For better code readability, each component is in its own script file, the main script `init.lua` imports them. You can load multiple scripts from the init script:
 
 File `/usr/lua/init.lua`:
+
 ```lua
 component.register(require("stopbutton"))
 component.register(require("thingsboard"))
 ```
 
+### Emergency stop button
+
+Script to handle an emergency stop button connected to an AUX input:
 
 Emergency Stop in file `/usr/lua/stopbutton.lua`:
+
 ```lua
 local evse = require("evse")
 local aux = require("aux")
@@ -341,6 +347,7 @@ return {
     end
 }
 ```
+
 This will comply with the following:
 - with the emergency button pressed, will turn off the Available switch on EVSE (connected between +12V and IN1)
 - it will force the Available switch off as long as the button is pressed down
@@ -350,8 +357,12 @@ This will comply with the following:
 
 Use an NO mushroom button which locks itself in when pressed, rotate its head to disengage.
 
+### ThingsBoard cloud connection
 
-ThingsBoard cloud connection in file `/usr/lua/thingsboard.lua`:
+Implementing an integration to ThingsBoard cloud:
+
+ThingsBoard script in file `/usr/lua/thingsboard.lua`:
+
 ```lua
 local evse = require("evse")
 local energymeter = require("energymeter")
@@ -432,6 +443,8 @@ return {
     end
 }
 ```
+
+
 
 ## See also
 
