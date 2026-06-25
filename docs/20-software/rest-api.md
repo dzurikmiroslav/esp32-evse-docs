@@ -596,6 +596,93 @@ you can edit Lua scripts in place.
     (including Lua scripts), even when credentials are configured. Keep the
     device on a trusted network.
 
+## Examples
+
+### EVCC Integration
+
+Here's a mapping between ESP32-EVSE REST Api and EVCC. Replace EVSE_IP with your charger's address
+
+```yaml
+chargers:
+  - name: esp32evse
+    type: custom                      # continuous current control + built-in meter
+
+    # status: map ESP32-EVSE state (A,B1,B2,C1,C2,D1,D2,E,F) to EVCC's A..F
+    status:
+      source: http
+      uri: http://EVSE_IP/api/v1/state
+      jq: .state[0:1]                 # first letter only: B1/B2->B, C1/C2->C, D1/D2->D
+
+    enabled:                          # is charging enabled? -> bool
+      source: http
+      uri: http://EVSE_IP/api/v1/state
+      jq: .enabled
+
+    enable:                           # start/stop charging
+      source: http
+      uri: http://EVSE_IP/api/v1/state/enabled
+      method: POST
+      headers:
+        - content-type: application/json   # required, else the firmware returns 415
+      body: "{{if .enable}}true{{else}}false{{end}}"
+
+    maxcurrent:                       # integer A
+      source: http
+      uri: http://EVSE_IP/api/v1/state/charging-current
+      method: POST
+      headers:
+        - content-type: application/json
+      body: "{{.maxcurrent}}"
+
+    maxcurrentmillis:                 # fractional A -> "dimmable"; device rounds to 0.1 A
+      source: http
+      uri: http://EVSE_IP/api/v1/state/charging-current
+      method: POST
+      headers:
+        - content-type: application/json
+      body: "{{.maxcurrentmillis}}"
+
+    # ---- built-in meter ----
+    power:
+      source: http
+      uri: http://EVSE_IP/api/v1/state
+      jq: .power                      # W
+    energy:
+      source: http
+      uri: http://EVSE_IP/api/v1/state
+      jq: .totalConsumption / 3600000 # Ws -> kWh (lifetime, monotonic)
+    currents:                         # must be exactly three entries
+      - { source: http, uri: "http://EVSE_IP/api/v1/state", jq: .current[0] }
+      - { source: http, uri: "http://EVSE_IP/api/v1/state", jq: .current[1] }
+      - { source: http, uri: "http://EVSE_IP/api/v1/state", jq: .current[2] }
+    voltages:
+      - { source: http, uri: "http://EVSE_IP/api/v1/state", jq: .voltage[0] }
+      - { source: http, uri: "http://EVSE_IP/api/v1/state", jq: .voltage[1] }
+      - { source: http, uri: "http://EVSE_IP/api/v1/state", jq: .voltage[2] }
+
+loadpoints:
+  - title: Garage
+    charger: esp32evse
+    mode: pv
+    mincurrent: 6
+    maxcurrent: 16                    # <= the device's maxChargingCurrent
+    phases: 1                         # set to your wiring (1 or 3)
+```
+
+!!! note
+    This hasn't been thoroughly tested. Please [give feedback](https://github.com/dzurikmiroslav/esp32-evse/discussions) if you try it.
+
+!!! note    
+    ESP32-EVSE stores charging current at 0.1 A (deci-amp) granularity, so the "milliamp" path really gives 100 mA steps.
+    It's genuinely continuously dimmable, just not to 1 mA. 
+    
+    Energy uses `totalConsumption`, not `consumption`. EVCC treats the charger's energy as a monotonic counter and diffs
+    it for session energy; `consumption` resets to 0 each session and would produce negative diffs, so use the lifetime counter.
+    
+    Set ESP32-EVSE so it doesn't require authorization for charging. If HTTP Basic credentials are set, add an auth: block
+    (type: basic, user:, password:) to each plugin — I left it out assuming no auth. 
+
+
 ## See also
 
 - [Modbus](Modbus.md)

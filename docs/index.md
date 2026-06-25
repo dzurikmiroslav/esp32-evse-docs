@@ -23,6 +23,8 @@ This project is firmware that turns an **ESP32-based board** into a **fully feat
 
 Many users who built the unit [confirmed it working with a number of vehicles](https://github.com/dzurikmiroslav/esp32-evse/discussions/160).
 
+It supports integration with popular platforms like EVCC and Home Assistant in multiple ways.
+
 ## How it works
 
 The charger and the vehicle communicate over two signalling lines defined by the standard:
