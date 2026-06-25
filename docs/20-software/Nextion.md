@@ -94,6 +94,7 @@ For an advanced example of HMI built with a Nextion display check out the [esp32
 
 ## See also
 
+- [Integration Examples](integration.md)
 - [Modbus](Modbus.md)
 - [Lua](Lua.md)
 - [AT commands](AT-Commands.md)
