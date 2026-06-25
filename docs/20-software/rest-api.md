@@ -600,7 +600,7 @@ you can edit Lua scripts in place.
 
 ### EVCC Integration
 
-Here's a mapping between ESP32-EVSE REST Api and EVCC. Replace EVSE_IP with your charger's address
+Here's a mapping between ESP32-EVSE REST Api and EVCC. Replace `EVSE_IP` with your charger's address:
 
 ```yaml
 chargers:
@@ -680,7 +680,7 @@ loadpoints:
     it for session energy; `consumption` resets to 0 each session and would produce negative diffs, so use the lifetime counter.
     
     Set ESP32-EVSE so it doesn't require authorization for charging. If HTTP Basic credentials are set, add an auth: block
-    (type: basic, user:, password:) to each plugin — I left it out assuming no auth. 
+    (type: basic, user:, password:) to each plugin. 
 
 
 ## See also
