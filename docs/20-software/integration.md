@@ -12,7 +12,8 @@ Set the values in the script directly overwriting the defaults or from the web U
 
 **EVSE identifier** is important in case of autodiscovery, as it is used as topic prefix, as node path to uniquely identify the charger and when generating entity ids.
 
-![Home Assistant](/images/luascript_mqtt_homeassistant.png)
+![Home Assistant](/images/lua-mqtt-ha-light.png#only-light)
+![Home Assistant](/images/lua-mqtt-ha-dark.png#only-dark)
 
 File `/usr/lua/ha_bridge.lua`:
 
